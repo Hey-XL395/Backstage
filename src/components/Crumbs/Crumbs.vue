@@ -58,6 +58,7 @@ export default {
 <style scoped lang="scss">
 .Crumbs {
   margin: 20px;
+  padding-top: 40px;
 }
 .oldimg {
   transition: all 0.5s;

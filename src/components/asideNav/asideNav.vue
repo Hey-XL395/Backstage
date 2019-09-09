@@ -6,7 +6,6 @@
       @open="handleOpen"
       :collapse="isCollapsecode"
       @select="handleSelect"
-      collapse-transition="true"
       text-color="#fff"
       active-text-color="#ffd04b"
       background-color="#344055"
@@ -159,7 +158,7 @@ export default {
       }
     },
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
   },
   mounted() {
@@ -191,8 +190,8 @@ export default {
   },
   watch: {
     languagedata(val, oldval) {
-      console.log(val);
-      console.log(oldval);
+      // console.log(val);
+      // console.log(oldval);
       this.bigclass[0].title = this.$t("content.home");
       this.bigclass[1].title = this.$t("content.Schedule");
       this.bigclass[2].title = this.$t("content.Maillist");

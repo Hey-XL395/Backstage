@@ -81,6 +81,7 @@
         </el-date-picker>
       </div>
       <br />
+      <div v-if="smallDynamic.length === 0 " class="none">暂无数据</div>
       <div class="hovercolor">
         <div
           v-for="(item, index) in smallDynamic"
@@ -94,7 +95,7 @@
             <div>{{ item.classification }}</div>
             <div>{{ item.username }}</div>
           </div>
-          <div v-if="item.reportUsers[0]" class="contentdv1">
+          <div v-if="item.reportUsers[0]" class="contentdv1" :title="item.reportUsers">
             汇报人:
             <div v-for="item1 in item.reportUsers" class="contentdv1">
               {{ item1 }}
@@ -208,7 +209,7 @@ export default {
             message: "发布成功",
             type: "success"
           });
-          (this.form.type = []),
+          (this.form.type = ""),
             (this.form.region = ""),
             (this.form.desc = ""),
             (this.form.name = "");
@@ -343,6 +344,9 @@ export default {
 }
 .hovercolor3 {
   background: yellowgreen;
+}
+.none {
+  margin-left: 20px;
 }
 .hovercolor1 {
   padding: 10px;

@@ -22,7 +22,7 @@ const router = new Router({
             showFooter: true
           }
         }
-      ],
+      ]
     },
     {
       path: "/Land",
@@ -37,7 +37,7 @@ const router = new Router({
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/Registrazione",
@@ -52,7 +52,7 @@ const router = new Router({
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/Getpassword",
@@ -67,7 +67,7 @@ const router = new Router({
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/scheduleManagement",
@@ -83,7 +83,7 @@ const router = new Router({
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/Maillist",
@@ -98,7 +98,7 @@ const router = new Router({
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/OfferAdministration",
@@ -107,13 +107,14 @@ const router = new Router({
       children: [
         {
           path: "Organizationalpersonnel",
-          component: () => import("./views/OfferAdministration/OfferAdministration.vue"),
+          component: () =>
+            import("./views/OfferAdministration/OfferAdministration.vue"),
           meta: {
             title: "offer管理",
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/PersonnelInformation",
@@ -122,13 +123,14 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: () => import("./views/PersonnelInformation/PersonnelInformation.vue"),
+          component: () =>
+            import("./views/PersonnelInformation/PersonnelInformation.vue"),
           meta: {
             title: "人员信息",
             showFooter: false
           }
         }
-      ],
+      ]
     },
     {
       path: "/Classificationform",
@@ -137,14 +139,14 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: () => import("./views/Classificationform/Classificationform.vue"),
+          component: () =>
+            import("./views/Classificationform/Classificationform.vue"),
           meta: {
             title: "分布表单",
             showFooter: false
           }
         }
-      ],
-
+      ]
     },
     {
       path: "/SalaryManagement",
@@ -153,14 +155,15 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: () => import("./views/SalaryManagement/SalaryManagement.vue"),
+          component: () =>
+            import("./views/SalaryManagement/SalaryManagement.vue"),
           meta: {
             title: "薪酬管理",
             showFooter: false
           }
         }
-      ],
-    },
+      ]
+    }
   ]
 });
 export default router;

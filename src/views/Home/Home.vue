@@ -131,7 +131,7 @@ export default {
       this.$axios
         .req("api/price")
         .then(res => {
-          console.log(res);
+          // console.log(res);
           let arr = [];
           // 注释注释注释注释注释
           res.data.data.map((item, index) => {
@@ -146,7 +146,7 @@ export default {
             }
           });
           this.topmessage = res.data.data;
-          console.log(this.topmessage);
+          // console.log(this.topmessage);
         })
         .catch(e => {
           console.log(e);

@@ -71,7 +71,7 @@
           </el-table-column>
           <el-table-column
             prop="websiteName"
-            label="问卷主题"
+            label="网站名称"
             width="270"
             header-align="center"
             align="center"
@@ -85,6 +85,7 @@
             filter-placement="bottom-end"
           >
             <template slot-scope="scope">
+<!--              //自定义属性-->
               <el-tag :type="scope.row.type" disable-transitions>{{
                 scope.row.websiteName
               }}</el-tag>
@@ -190,7 +191,7 @@ export default {
       if (val.row.websiteName === "Github") {
         this.input = "https://github.com/";
       }
-      console.log(val.row);
+      // console.log(val.row);
     },
     filterTag(value, row) {
       return row.topic === value;
@@ -199,7 +200,7 @@ export default {
       return row.websiteName === value;
     },
     filterHandler(value, row, column) {
-      console.log(column);
+      // console.log(column);
       const property = column["property"];
       return row[property] === value;
     }
@@ -208,7 +209,7 @@ export default {
     this.$axios
       .req("api/frommsg")
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.frommsg = res.data.data;
         this.frommsg.map(item => {
           if (item.websiteName === "百度") {

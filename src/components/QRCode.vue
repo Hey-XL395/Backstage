@@ -1,6 +1,5 @@
 <template>
   <div id="qrCode">
-    {{ code }}
     <div id="code"></div>
     <canvas id="canvas"></canvas>
   </div>
@@ -29,13 +28,13 @@ export default {
       var canvas = document.getElementById("canvas");
       QRCode.toCanvas(canvas, this.code, function(error) {
         if (error) console.error(error);
-        console.log("QRCode success!");
+        // console.log("QRCode success!");
       });
     }
   },
 
   mounted() {
-    console.log(this.code);
+    // console.log(this.code);
     this.useqrcode();
   },
   computed: {
@@ -45,8 +44,8 @@ export default {
   },
   watch: {
     codedata(val, oldval) {
-      console.log(val);
-      console.log(oldval);
+      // console.log(val);
+      // console.log(oldval);
       this.useqrcode();
     }
   }
