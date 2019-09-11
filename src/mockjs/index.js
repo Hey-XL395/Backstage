@@ -196,6 +196,7 @@ Mock.mock("api/PersonnelInformation", "get", {
   "data|200": [
     {
       name: "@cname()", //随机姓名
+      flag:"@boolean",
       startdate: "@date()", //随机开始时间
       enddate: "@date()", //随机结束时间
       maxdepartment:"区域中心",//机构

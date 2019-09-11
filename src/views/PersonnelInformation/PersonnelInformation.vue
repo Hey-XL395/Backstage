@@ -8,8 +8,10 @@
         <el-button type="primary" v-if="flag" @click="show"
           >批量转正申请</el-button
         >
-        <el-button type="primary" v-if="!flag" @click="confirmConverted">确认</el-button
-        ><el-button type="primary" v-if="!flag" @click="cancelshow">取消</el-button
+        <el-button type="primary" v-if="!flag" @click="confirmConverted"
+          >确认</el-button
+        ><el-button type="primary" v-if="!flag" @click="cancelshow"
+          >取消</el-button
         ><el-button type="primary">导出</el-button>
       </div>
     </header>
@@ -30,13 +32,9 @@
               ref="filterTable"
               :data="frommsg.slice((val - 1) * val1, val1 * val)"
               style="width: 100%"
+              @selection-change="handleSelectionChange"
             >
-              <el-table-column
-                type="selection"
-                width="55"
-                @selection-change="changecheck(selection)"
-              >
-              </el-table-column>
+              <el-table-column type="selection" width="55"> </el-table-column>
               <el-table-column
                 prop="name"
                 label="姓名"
@@ -53,7 +51,6 @@
                 align="center"
                 width="225"
                 column-key="olddate"
-                :filter-method="filterHandler"
               >
               </el-table-column>
               <el-table-column
@@ -80,7 +77,6 @@
                 align="center"
                 width="225"
                 column-key="newdate"
-                :filter-method="filterHandler"
               >
               </el-table-column>
               <el-table-column
@@ -91,7 +87,6 @@
                 align="center"
                 width="225"
                 column-key="newdate"
-                :filter-method="filterHandler"
               >
               </el-table-column>
               <el-table-column
@@ -153,12 +148,18 @@ export default {
       maxfrommsg: [],
       val: 1,
       val1: 30,
-      currentPage: 1
+      currentPage: 1,
+      checktype: []
     };
   },
   methods: {
-    changecheck(selection) {
-      console.log(selection);
+    //点击多选框
+    handleSelectionChange(val) {
+      console.log(val);
+      this.checktype = val;
+      // this.checktype.map(item=>{
+      //   item.type = "审核通过"
+      // })
     },
     // 批量转正申请
     show() {
@@ -173,6 +174,18 @@ export default {
     // 确认
     confirmConverted() {
       console.log(1);
+      if (this.checktype.length === 0){
+        this.$message({
+          message:"一条数据都没有",
+          type:"error"
+        })
+      } else {
+        this.checktype.map(item => {
+          item.type = "审核通过";
+        });
+        this.flag = true
+      }
+
     },
     cancelshow() {
       this.flag = true;
@@ -184,7 +197,7 @@ export default {
     // 全部员工再次赋值
     allpeople() {
       this.frommsg = this.maxfrommsg;
-      this.flag = true
+      this.flag = true;
     },
     //考核中员工
     Examination() {
@@ -198,7 +211,7 @@ export default {
     //转正员工
     Converted() {
       this.frommsg = [];
-      this.flag = true
+      this.flag = true;
       this.maxfrommsg.map(item => {
         if (item.type === "审核通过") {
           this.frommsg.push(item);

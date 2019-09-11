@@ -45,7 +45,7 @@
           ></el-input>
           <div style="text-align: right; margin: 0">
             <br />
-            <el-button type="primary" size="mini" @click="visible = false"
+            <el-button type="primary" size="mini" @click="addusers"
               >确定</el-button
             >
           </div>
@@ -79,14 +79,7 @@ export default {
       inputname: "", //小对话框内容
       endTime: "", //结束时间
       dialogVisible: false,
-      events: [
-        {
-          title: "事件内容", // 事件内容
-          start: "2019-09-11 09:00", // 事件开始时间
-          end: "2019-09-11 12:00", // 事件结束时间
-          color: "rgba(9, 9, 9, 0.2)" // 事件的显示颜色
-        }
-      ],
+      events: [{}],
       config: {
         buttonText: { today: "今天", month: "月", week: "周", day: "日" },
         locale: "zh-cn",
@@ -96,13 +89,15 @@ export default {
         allDaySlot: false, //是否显示allDay
         defaultView: "month", //显示默认视图
         eventClick: this.eventClick, //点击事件
-        dayClick: this.dayClick //点击日程表上面某一天
+        dayClick: this.dayClick, //点击日程表上面某一天
+        eventRender: this.eventRender
       }
     };
   },
   methods: {
-    addname() {
-      this.visible = true;
+    addusers() {
+      this.username.push(this.inputname);
+      this.visible = false;
     },
     // handleClose(done) {
     //   this.$confirm("确认关闭？")
@@ -122,8 +117,8 @@ export default {
         this.dialogVisible = false;
         this.clickday = this.$moment(this.clickday).format("YYYY-MM-DD"); // 获得点中日期，处理拼接，时间选择器无日期
         // 添加空格
-        let startTime = this.clickday+' '+this.startTime
-        let endTime = this.clickday+' '+this.endTime
+        let startTime = this.clickday + " " + this.startTime;
+        let endTime = this.clickday + " " + this.endTime;
         //发布日程
         this.$axios
           .req("api/calendar", {
@@ -143,6 +138,25 @@ export default {
     // 点击事件
     eventClick(event, jsEvent, pos) {
       console.log("eventClick", event, jsEvent, pos);
+      alert(1)
+    },
+    eventRender: function(event, element) {
+      let starttime = this.$moment(event.startTime).format("hh:mm");
+      let endtime = this.$moment(event.endTime).format("hh:mm");
+      element[0].innerHTML =
+        '<div class="fc-content"><div class="fc-time">' +
+        starttime +
+        "~" +
+        endtime +
+        '<span class="fc-title">' +
+        event.schedule +
+        "</span></div><div>" +
+        "参与人：" +
+        event.users.join(" ") +
+        "</div>" +
+        "参与人数：" +' <i class="el-icon-user-solid"></i>'+
+        event.users.length +
+        "</div></div>";
     },
     // 点击当天
     dayClick(day, jsEvent) {
@@ -168,13 +182,16 @@ export default {
       .req("api/calendar")
       .then(res => {
         console.log(res);
-        res.data.data.map(item=>{
-          this.$set(item,"color","rgba(9, 9, 9, 0.2)")
-          this.$set(item,"title",item.schedule)
-          this.$set(item,"start",this.$moment(item.startTime).format("YYYY-MM-DD hh:mm"))
-          this.$set(item,"end",this.$moment(item.endTime).format("YYYY-MM-DD hh:mm"))
-        })
-        this.events = res.data.data
+
+        this.events = res.data.data;
+        res.data.data.map(item => {
+          this.$set(item, "color", "rgba(109, 169, 24, 0.5)");
+          this.$set(
+            item,
+            "start",
+            this.$moment(item.startTime).format("YYYY-MM-DD hh:mm")
+          );
+        });
       })
       .catch(e => {
         console.log(e);
@@ -188,4 +205,8 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+s {
+  color: #b4ff2f;
+}
+</style>
