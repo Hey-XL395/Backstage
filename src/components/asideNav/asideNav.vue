@@ -145,16 +145,16 @@ export default {
         this.$router.push("/Maillist");
       }
       if (Number(key) === 4) {
-        this.$router.push("/SalaryManagement");
+        this.$router.push("/SalaryManagement/Organizationalpersonnel");
       }
       if (Number(key) === 5) {
-        this.$router.push("/PersonnelInformation");
+        this.$router.push("/PersonnelInformation/Organizationalpersonnel");
       }
       if (Number(key) === 6) {
         this.$router.push("/OfferAdministration/Organizationalpersonnel");
       }
       if (Number(key) === 7) {
-        this.$router.push("/Classificationform");
+        this.$router.push("/Classificationform/From");
       }
     },
     handleOpen(key, keyPath) {

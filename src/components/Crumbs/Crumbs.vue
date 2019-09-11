@@ -6,6 +6,7 @@
           ><i class="el-icon-back" @click="showlable"></i></span
         ><span @click="tohome">首页</span></el-breadcrumb-item
       >
+      <el-breadcrumb-item v-if="maxmsg">{{ maxmsg }}</el-breadcrumb-item>
       <el-breadcrumb-item v-if="msg !== '首页'">{{ msg }}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
@@ -19,6 +20,7 @@ export default {
   data() {
     return {
       msg: "",
+      maxmsg:"",
       flag: false
     };
   },
@@ -46,6 +48,7 @@ export default {
       handler(val) {
         // console.log(val);//新路由信息
         this.msg = val.meta.title;
+        this.maxmsg = val.meta.maxtitle
       },
       // 深度观察监听
       deep: true

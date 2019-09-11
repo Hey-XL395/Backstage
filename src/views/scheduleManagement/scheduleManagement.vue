@@ -37,11 +37,14 @@
       </div>
       <br />
       <div>
-        参与人：{{ username }}
+        参与人：<span v-for="item in username"> {{ item }} </span>
         <el-popover placement="bottom" width="200" v-model="visible">
-          <el-input v-model="inputname" placeholder="请输入参与人姓名"></el-input>
+          <el-input
+            v-model="inputname"
+            placeholder="请输入参与人姓名"
+          ></el-input>
           <div style="text-align: right; margin: 0">
-              <br>
+            <br />
             <el-button type="primary" size="mini" @click="visible = false"
               >确定</el-button
             >
@@ -51,9 +54,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="addschedule">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -69,18 +70,20 @@ export default {
   props: {},
   data() {
     return {
-      input: "",
-      username: "",
-      startTime: "",
+      input: "", //日程内容
+      clickday: "", //用户选中的时间
+      nowday: "", //当前时间
+      username: [], //相关人
+      startTime: "", //开始时间
       visible: false, //小对话框
-      inputname: "",//小对话框内容
-      endTime: "", //时间
+      inputname: "", //小对话框内容
+      endTime: "", //结束时间
       dialogVisible: false,
       events: [
         {
-          title: "事件内容1", // 事件内容
-          start: "2019-09-11 09:00:00", // 事件开始时间
-          end: "2019-09-11 12:00:00", // 事件结束时间
+          title: "事件内容", // 事件内容
+          start: "2019-09-11 09:00", // 事件开始时间
+          end: "2019-09-11 12:00", // 事件结束时间
           color: "rgba(9, 9, 9, 0.2)" // 事件的显示颜色
         }
       ],
@@ -108,6 +111,35 @@ export default {
     //     })
     //     .catch(_ => {});
     // },
+    //添加日程
+    addschedule() {
+      if (this.startTime === "" || this.startTime === "" || this.input === "") {
+        this.$message({
+          message: "数据未填完",
+          type: "warning"
+        });
+      } else {
+        this.dialogVisible = false;
+        this.clickday = this.$moment(this.clickday).format("YYYY-MM-DD"); // 获得点中日期，处理拼接，时间选择器无日期
+        // 添加空格
+        let startTime = this.clickday+' '+this.startTime
+        let endTime = this.clickday+' '+this.endTime
+        //发布日程
+        this.$axios
+          .req("api/calendar", {
+            users: this.username,
+            startTime: startTime,
+            endTime: endTime,
+            schedule: this.input
+          })
+          .then(res => {
+            console.log(res);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
+    },
     // 点击事件
     eventClick(event, jsEvent, pos) {
       console.log("eventClick", event, jsEvent, pos);
@@ -116,9 +148,10 @@ export default {
     dayClick(day, jsEvent) {
       // console.log(jsEvent);
       console.log(day);
-      let oldday = this.$moment(day._i).format("YYYYMMDD");
-      let nowday = this.$moment(Date().now).format("YYYYMMDD");
-      if (oldday < nowday) {
+      //处理成纯数字好比较大小，排除时分秒干扰
+      this.clickday = this.$moment(day._i).format("YYYYMMDD");
+      this.nowday = this.$moment(Date().now).format("YYYYMMDD");
+      if (this.clickday < this.nowday) {
         this.$message({
           message: "今天之前日程无法添加",
           type: "warning"
@@ -129,7 +162,23 @@ export default {
     }
   },
   mounted() {
-    this.username = localStorage.getItem("user");
+    this.username.push(localStorage.getItem("user"));
+    //获取全部日程
+    this.$axios
+      .req("api/calendar")
+      .then(res => {
+        console.log(res);
+        res.data.data.map(item=>{
+          this.$set(item,"color","rgba(9, 9, 9, 0.2)")
+          this.$set(item,"title",item.schedule)
+          this.$set(item,"start",this.$moment(item.startTime).format("YYYY-MM-DD hh:mm"))
+          this.$set(item,"end",this.$moment(item.endTime).format("YYYY-MM-DD hh:mm"))
+        })
+        this.events = res.data.data
+      })
+      .catch(e => {
+        console.log(e);
+      });
   },
   created() {},
   filters: {},

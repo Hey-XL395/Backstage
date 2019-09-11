@@ -18,8 +18,7 @@ const router = new Router({
           path: "",
           component: Home,
           meta: {
-            title: "首页",
-            showFooter: true
+            title: "首页"
           }
         }
       ]
@@ -27,47 +26,26 @@ const router = new Router({
     {
       path: "/Land",
       name: "Land",
-      component: Content,
-      children: [
-        {
-          path: "",
-          component: () => import("./views/Land/Land.vue"),
-          meta: {
-            title: "登陆",
-            showFooter: false
-          }
-        }
-      ]
+      component: () => import("./views/Land/Land.vue"),
+      meta: {
+        title: "登陆"
+      }
     },
     {
       path: "/Registrazione",
       name: "Registrazione",
-      component: Content,
-      children: [
-        {
-          path: "",
-          component: () => import("./views/Registrazione/Registrazione.vue"),
-          meta: {
-            title: "注册",
-            showFooter: false
-          }
-        }
-      ]
+      component: () => import("./views/Registrazione/Registrazione.vue"),
+      meta: {
+        title: "注册"
+      }
     },
     {
       path: "/Getpassword",
       name: "Getpassword",
-      component: Content,
-      children: [
-        {
-          path: "",
-          component: () => import("./views/Getpassword/Getpassword.vue"),
-          meta: {
-            title: "找回密码",
-            showFooter: false
-          }
-        }
-      ]
+      component: () => import("./views/Getpassword/Getpassword.vue"),
+      meta: {
+        title: "找回密码"
+      }
     },
     {
       path: "/scheduleManagement",
@@ -79,8 +57,7 @@ const router = new Router({
           component: () =>
             import("./views/scheduleManagement/scheduleManagement.vue"),
           meta: {
-            title: "日程管理",
-            showFooter: false
+            title: "日程管理"
           }
         }
       ]
@@ -94,8 +71,7 @@ const router = new Router({
           path: "",
           component: () => import("./views/Maillist/Maillist.vue"),
           meta: {
-            title: "通讯录",
-            showFooter: false
+            title: "通讯录"
           }
         }
       ]
@@ -111,7 +87,7 @@ const router = new Router({
             import("./views/OfferAdministration/OfferAdministration.vue"),
           meta: {
             title: "offer管理",
-            showFooter: false
+            maxtitle:"组织员工"
           }
         }
       ]
@@ -122,12 +98,12 @@ const router = new Router({
       component: Content,
       children: [
         {
-          path: "",
+          path: "Organizationalpersonnel",
           component: () =>
             import("./views/PersonnelInformation/PersonnelInformation.vue"),
           meta: {
             title: "人员信息",
-            showFooter: false
+            maxtitle:"组织员工"
           }
         }
       ]
@@ -138,12 +114,12 @@ const router = new Router({
       component: Content,
       children: [
         {
-          path: "",
+          path: "From",
           component: () =>
             import("./views/Classificationform/Classificationform.vue"),
           meta: {
             title: "分布表单",
-            showFooter: false
+            maxtitle:"表单页"
           }
         }
       ]
@@ -154,12 +130,12 @@ const router = new Router({
       component: Content,
       children: [
         {
-          path: "",
+          path: "Organizationalpersonnel",
           component: () =>
             import("./views/SalaryManagement/SalaryManagement.vue"),
           meta: {
             title: "薪酬管理",
-            showFooter: false
+            maxtitle:"组织员工"
           }
         }
       ]
