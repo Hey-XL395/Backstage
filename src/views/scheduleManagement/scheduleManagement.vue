@@ -57,6 +57,15 @@
         <el-button type="primary" @click="addschedule">确 定</el-button>
       </span>
     </el-dialog>
+    <div>
+      <el-dialog title="" :visible.sync="dialogVisible1" width="30%">
+        <span>确认删除该日程安排吗</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible1 = false">取 消</el-button>
+          <el-button type="primary" @click="delCalendar">确 定</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -79,14 +88,17 @@ export default {
       inputname: "", //小对话框内容
       endTime: "", //结束时间
       dialogVisible: false,
+      dialogVisible1: false, //删除弹框
       events: [{}],
+      id: "", //删除安排id
       config: {
         buttonText: { today: "今天", month: "月", week: "周", day: "日" },
         locale: "zh-cn",
         editable: false, //是否允许修改事件
         selectable: false,
         eventLimit: 4, //事件个数
-        allDaySlot: false, //是否显示allDay
+        allDaySlot: true, //是否显示allDay
+        allDayText: "all-day",
         defaultView: "month", //显示默认视图
         eventClick: this.eventClick, //点击事件
         dayClick: this.dayClick, //点击日程表上面某一天
@@ -106,6 +118,27 @@ export default {
     //     })
     //     .catch(_ => {});
     // },
+    //删除日程
+    delCalendar() {
+      console.log(this.id);
+
+      this.$axios
+        .req("api/delCalendar", {
+          id: this.id
+        })
+        .then(res => {
+          console.log(res);
+          this.dialogVisible1 = false;
+          this.addcalendar();
+          this.$message({
+            message: "删除成功",
+            type: "success"
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     //添加日程
     addschedule() {
       if (this.startTime === "" || this.startTime === "" || this.input === "") {
@@ -115,7 +148,7 @@ export default {
         });
       } else {
         this.dialogVisible = false;
-        this.clickday = this.$moment(this.clickday).format("YYYY-MM-DD"); // 获得点中日期，处理拼接，时间选择器无日期
+        this.clickday = this.$moment(this.clickday).format("YYYY-MM-DD"); // 获得点中对应栏天数日期，处理拼接，时间选择器无日期
         // 添加空格
         let startTime = this.clickday + " " + this.startTime;
         let endTime = this.clickday + " " + this.endTime;
@@ -128,7 +161,11 @@ export default {
             schedule: this.input
           })
           .then(res => {
-            console.log(res);
+            this.$message({
+              message: "添加成功",
+              type: "success"
+            });
+            this.addcalendar();
           })
           .catch(e => {
             console.log(e);
@@ -138,11 +175,22 @@ export default {
     // 点击事件
     eventClick(event, jsEvent, pos) {
       console.log("eventClick", event, jsEvent, pos);
-      alert(1)
+      if (
+        this.$moment(event.startTime).format("YYYYMMDD") <
+        this.$moment(Date.now()).format("YYYYMMDD")
+      ) {
+        this.$message({
+          message: "不能删除已进行的日程",
+          type: "error"
+        });
+      } else {
+        this.dialogVisible1 = true;
+        this.id = event._id;
+      }
     },
     eventRender: function(event, element) {
-      let starttime = this.$moment(event.startTime).format("hh:mm");
-      let endtime = this.$moment(event.endTime).format("hh:mm");
+      let starttime = this.$moment(event.startTime).format("HH:mm");
+      let endtime = this.$moment(event.endTime).format("HH:mm");
       element[0].innerHTML =
         '<div class="fc-content"><div class="fc-time">' +
         starttime +
@@ -154,7 +202,8 @@ export default {
         "参与人：" +
         event.users.join(" ") +
         "</div>" +
-        "参与人数：" +' <i class="el-icon-user-solid"></i>'+
+        "参与人数：" +
+        ' <i class="el-icon-user-solid"></i>' +
         event.users.length +
         "</div></div>";
     },
@@ -173,34 +222,51 @@ export default {
       } else {
         this.dialogVisible = true;
       }
+    },
+    addcalendar() {
+      //获取全部日程
+      this.$axios
+        .req("api/calendar")
+        .then(res => {
+          console.log(res);
+          this.events = res.data.data;
+          res.data.data.map(item => {
+            this.$set(item, "color", "rgba(109, 169, 24, 0.5)");
+            this.$set(
+              item,
+              "start",
+              this.$moment(item.startTime).format("YYYY-MM-DD HH:mm")
+            );
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   mounted() {
     this.username.push(localStorage.getItem("user"));
     //获取全部日程
-    this.$axios
-      .req("api/calendar")
-      .then(res => {
-        console.log(res);
-
-        this.events = res.data.data;
-        res.data.data.map(item => {
-          this.$set(item, "color", "rgba(109, 169, 24, 0.5)");
-          this.$set(
-            item,
-            "start",
-            this.$moment(item.startTime).format("YYYY-MM-DD hh:mm")
-          );
-        });
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.addcalendar();
   },
   created() {},
   filters: {},
-  computed: {},
-  watch: {},
+  computed: {
+    flagtype() {
+      return this.dialogVisible;
+    }
+  },
+  watch: {
+    flagtype(vla, oldval) {
+      if (oldval === false) {
+        this.username = [];
+        this.username.push(localStorage.getItem("user"));
+        this.input = '';
+        this.startTime = "";
+        this.endTime = "";
+      }
+    }
+  },
   directives: {}
 };
 </script>

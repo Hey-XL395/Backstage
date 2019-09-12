@@ -17,10 +17,10 @@
     </header>
     <nav>
       <div>
-        <el-button type="primary" plain @click="allpeople">全部员工</el-button
-        ><el-button type="primary" plain @click="Examination"
+        <el-button type="primary" plain round @click="allpeople" autofocus>全部员工</el-button
+        ><el-button type="primary" plain round @click="Examination"
           >考核中员工</el-button
-        ><el-button type="primary" plain @click="Converted"
+        ><el-button type="primary" plain round @click="Converted"
           >已转正员工</el-button
         >
       </div>
@@ -34,11 +34,10 @@
               style="width: 100%"
               @selection-change="handleSelectionChange"
             >
-              <el-table-column type="selection" width="55"> </el-table-column>
+              <el-table-column type="selection" width="55" fix> </el-table-column>
               <el-table-column
                 prop="name"
                 label="姓名"
-                width="225"
                 header-align="center"
                 align="center"
               >
@@ -49,14 +48,12 @@
                 sortable
                 header-align="center"
                 align="center"
-                width="225"
                 column-key="olddate"
               >
               </el-table-column>
               <el-table-column
                 prop="maxdepartment"
                 label="机构"
-                width="225"
                 header-align="center"
                 align="center"
               >
@@ -64,7 +61,6 @@
               <el-table-column
                 prop="department"
                 label="部门"
-                width="225"
                 header-align="center"
                 align="center"
               >
@@ -75,7 +71,6 @@
                 sortable
                 header-align="center"
                 align="center"
-                width="225"
                 column-key="newdate"
               >
               </el-table-column>
@@ -85,14 +80,12 @@
                 sortable
                 header-align="center"
                 align="center"
-                width="225"
                 column-key="newdate"
               >
               </el-table-column>
               <el-table-column
                 prop="type"
                 label="转正审批状态"
-                width="225"
                 header-align="center"
                 align="center"
                 :filters="[

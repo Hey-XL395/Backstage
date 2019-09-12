@@ -138,9 +138,13 @@ Mock.mock("api/OfferAdministration", "get", {
       cardid: "@increment", //身份证号码
       cardidtype: "@cword(2,4)", //证件类型随机几个字
       "num|1-10000": 10000, //工号
-      agedate: "@date()", //随机时间出生
-      "age|18-60": 60, //随机数字
-      city: "@city()", //随机城市
+      birth: "@date()", //随机时间出生
+      Entrytime:"@date()",//入职时间
+      "age|18-60": 60, //随机数字年龄
+      city: "@city()", //随机城市工作
+      Nation:"@cword(2,4)",//民族
+      Nativeplace:"@county(true)",//出生城市
+      "Approval|1":["待发offer", "已发", "已接受", "已拒绝", "已入职"],//审批状态
       "study|1": ["初中", "高中", "大专", "本科", "硕士", "博士", "博士以上"], //学历
       "marriagetype|1": ["已婚","未婚"], //婚姻状况
       "position|1": ["经理", "主管", "员工", "实习生"], //职位
@@ -244,6 +248,21 @@ Mock.mock("api/PersonnelInformation", "get", {
         "太原公司",
         "内蒙古组"
       ] //部门
+    }
+  ]
+});
+//生成薪酬数据
+Mock.mock("api/Salary", "get", {
+  code: 200,
+  msg: "success",
+  "data|3": [
+    {
+      Salary: "@cword(2,5)", //薪资构成
+      "expenditure|0-1000000": 1000000, //计划支出
+      "Actual|0-1000000": 1000000,//实际支出
+      "Lastmonth|0-1000000": 1000000, //上月支出
+      "LastmonthActual|0-1000000": 1000000, //上月支出
+
     }
   ]
 });

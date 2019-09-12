@@ -5,11 +5,10 @@
         <span>网站问卷调查</span>
       </div>
       <div>
-        <el-table ref="filterTable" :data="frommsg" style="width: 100%">
+        <el-table ref="filterTable" :data="frommsg" style="width: 100%" fit>
           <el-table-column
             prop="name"
             label="问卷名称"
-            width="270"
             header-align="center"
             align="center"
           >
@@ -17,7 +16,6 @@
           <el-table-column
             prop="askname"
             label="问卷调查"
-            width="270"
             header-align="center"
             align="center"
           >
@@ -28,7 +26,6 @@
             sortable
             header-align="center"
             align="center"
-            width="270"
             column-key="olddate"
             :filters="timedate"
             :filter-method="filterHandler"
@@ -40,7 +37,6 @@
             sortable
             header-align="center"
             align="center"
-            width="270"
             column-key="newdate"
             :filters="timedate1"
             :filter-method="filterHandler"
@@ -50,7 +46,6 @@
           <el-table-column
             prop="topic"
             label="问卷主题"
-            width="270"
             header-align="center"
             align="center"
             :filters="[
@@ -72,7 +67,6 @@
           <el-table-column
             prop="websiteName"
             label="网站名称"
-            width="270"
             header-align="center"
             align="center"
             :filters="[
@@ -93,7 +87,6 @@
           </el-table-column>
           <el-table-column
             label="操作"
-            width="270"
             header-align="center"
             align="center"
           >

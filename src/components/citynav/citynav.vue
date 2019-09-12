@@ -21,12 +21,7 @@
           @click="dialogVisible = true"
           >添加动态</el-button
         >
-        <el-dialog
-          title="添加动态"
-          :visible.sync="dialogVisible"
-          width="60%"
-          :before-close="handleClose"
-        >
+        <el-dialog title="添加动态" :visible.sync="dialogVisible" width="60%">
           <span
             ><el-form
               ref="form"
@@ -43,7 +38,6 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
-
               <el-form-item label="相关汇报人" v-if="form.type === '工作汇报'">
                 <el-select
                   v-model="form.name"
@@ -81,7 +75,7 @@
         </el-date-picker>
       </div>
       <br />
-      <div v-if="smallDynamic.length === 0 " class="none">暂无数据</div>
+      <div v-if="smallDynamic.length === 0" class="none">暂无数据</div>
       <div class="hovercolor">
         <div
           v-for="(item, index) in smallDynamic"
@@ -95,7 +89,11 @@
             <div>{{ item.classification }}</div>
             <div>{{ item.username }}</div>
           </div>
-          <div v-if="item.reportUsers[0]" class="contentdv1" :title="item.reportUsers">
+          <div
+            v-if="item.reportUsers[0]"
+            class="contentdv1"
+            :title="item.reportUsers"
+          >
             汇报人:
             <div v-for="item1 in item.reportUsers" class="contentdv1">
               {{ item1 }}
@@ -185,9 +183,7 @@ export default {
         }
       });
     },
-    handleClose(){
-
-    },
+    handleClose() {},
     //添加动态确认按钮
     adddynamic() {
       this.dialogVisible = false;
@@ -197,9 +193,10 @@ export default {
       //   })
       //   .catch(_ => {});
       //添加
+      let name = localStorage.getItem("user");
       this.$axios
         .req("api/addDynamic", {
-          username: "tom",
+          username: name,
           dynamic: this.form.desc,
           classification: this.form.type,
           reportUsers: this.form.name
@@ -233,7 +230,7 @@ export default {
       this.$axios
         .req("api/getDynamic")
         .then(res => {
-          this.smallDynamic = []
+          this.smallDynamic = [];
           this.allDynamic = res.data.data;
           this.allDynamic.map(item => {
             this.$set(
@@ -280,8 +277,20 @@ export default {
   },
   created() {},
   filters: {},
-  computed: {},
-  watch: {},
+  computed: {
+    flagtype() {
+      return this.dialogVisible;
+    }
+  },
+  watch: {
+    flagtype(vla, oldval) {
+      if (oldval === false) {
+        this.form.desc = "";
+        this.form.type = "";
+        this.form.name = [];
+      }
+    }
+  },
   directives: {}
 };
 </script>
