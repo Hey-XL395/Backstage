@@ -263,7 +263,8 @@ Mock.mock("api/Salary", "get", {
       "Lastmonth|0-1000000": 1000000, //上月支出
       "LastmonthActual|0-1000000": 1000000, //上月支出
       flag: true,
-      flag1:true
+      flag1:true,
+      flag2:true
     }
   ]
 });

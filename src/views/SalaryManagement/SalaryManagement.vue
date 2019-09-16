@@ -39,10 +39,13 @@
           >
             <template slot-scope="scope" class="el_border_none">
               <el-input
+                v-show="!scope.row.flag2"
+                size="small"
+                @blur="scope.row.flag2 = !scope.row.flag2"
                 v-model="scope.row.Salary"
-                placeholder="请输入内容"
-                class="el-inp"
+                style="width:200px"
               ></el-input>
+              <span v-show="scope.row.flag2">{{ scope.row.Salary }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -65,7 +68,6 @@
                 @blur="scope.row.flag = !scope.row.flag"
                 v-model="scope.row.expenditure"
                 style="width:200px"
-                autofocus
               ></el-input>
               <span
                 v-show="scope.row.flag"
@@ -87,7 +89,6 @@
                 @blur="scope.row.flag1 = !scope.row.flag1"
                 v-model="scope.row.Actual"
                 style="width:200px"
-                autofocus
               ></el-input>
               <span
                 v-show="scope.row.flag1"
@@ -181,7 +182,10 @@ export default {
         Lastmonth: 0,
         LastmonthActual: 0,
         Salary: "",
-        expenditure: ""
+        expenditure: "",
+        flag: false,
+        flag1: false,
+        flag2: false
       });
     },
     backadd() {
@@ -189,7 +193,20 @@ export default {
       this.Salary.unshift();
     },
     goadd() {
-      this.flag = true;
+      console.log();
+      let arr = this.Salary[this.Salary.length - 1];
+      if (
+        arr.Actual.length > 0 &&
+        arr.Salary.length > 0 &&
+        arr.expenditure.length > 0
+      ) {
+        this.flag = true;
+      } else {
+          this.$message({
+              message:"数据未完善",
+              type:"error"
+          })
+      }
     }
   },
   mounted() {
