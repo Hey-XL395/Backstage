@@ -2,7 +2,7 @@
   <div class="SalaryManagement">
     <header>
       <div>
-        <img src="../../assets/钱.png" alt="" class="imgstyle" />offer管理
+        <img src="../../assets/钱.png" alt="" class="imgstyle" />薪酬管理
       </div>
     </header>
     <el-card class="box-card">
@@ -37,19 +37,114 @@
             header-align="center"
             align="center"
           >
+            <template slot-scope="scope" class="el_border_none">
+              <el-input
+                v-model="scope.row.Salary"
+                placeholder="请输入内容"
+                class="el-inp"
+              ></el-input>
+            </template>
           </el-table-column>
           <el-table-column
-            v-for="item in labelarr"
-            :prop="item.prop"
-            :label="item.label"
+            prop="expenditure"
+            label="计划支出"
             header-align="center"
             align="center"
           >
-            <template slot-scope="scope">
-              <input v-model="scope.row.expenditure"  class="el-input">
+            <!--            <template slot-scope="scope" class="el_border_none">-->
+            <!--              <el-input-->
+            <!--                v-model="scope.row.expenditure"-->
+            <!--                placeholder="请输入内容"-->
+            <!--                class="el-inp"-->
+            <!--              ></el-input>-->
+            <!--            </template>-->
+            <template scope="scope">
+              <el-input
+                v-show="!scope.row.flag"
+                size="small"
+                @blur="scope.row.flag = !scope.row.flag"
+                v-model="scope.row.expenditure"
+                style="width:200px"
+                autofocus
+              ></el-input>
+              <span
+                v-show="scope.row.flag"
+                @click="scope.row.flag = !scope.row.flag"
+                >{{ scope.row.expenditure }}</span
+              >
             </template>
           </el-table-column>
+          <el-table-column
+            prop="Actual"
+            label="实际支出"
+            header-align="center"
+            align="center"
+          >
+            <template scope="scope">
+              <el-input
+                v-show="!scope.row.flag1"
+                size="small"
+                @blur="scope.row.flag1 = !scope.row.flag1"
+                v-model="scope.row.Actual"
+                style="width:200px"
+                autofocus
+              ></el-input>
+              <span
+                v-show="scope.row.flag1"
+                @click="scope.row.flag1 = !scope.row.flag1"
+                >{{ scope.row.Actual }}</span
+              >
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="Lastmonth"
+            label="上月支出"
+            header-align="center"
+            align="center"
+          >
+            <template slot-scope="scope" class="el_border_none">
+              <div>
+                <el-link disabled>{{ scope.row.LastmonthActual }}</el-link>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="LastmonthActual"
+            label="上月实际"
+            header-align="center"
+            align="center"
+          >
+            <template slot-scope="scope" class="el_border_none">
+              <div>
+                <el-link disabled>{{ scope.row.LastmonthActual }}</el-link>
+              </div>
+            </template>
+          </el-table-column>
+          <!--          <el-table-column-->
+          <!--            v-for="item in labelarr"-->
+          <!--            :prop="item.prop"-->
+          <!--            :label="item.label"-->
+          <!--            header-align="center"-->
+          <!--            align="center"-->
+          <!--          >-->
+          <!--            <template slot-scope="scope" class="el_border_none">-->
+          <!--              <el-input-->
+          <!--                v-model="scope.row.expenditure"-->
+          <!--                placeholder="请输入内容"-->
+          <!--                class="el-inp"-->
+          <!--              ></el-input>-->
+          <!--            </template>-->
+          <!--          </el-table-column>-->
         </el-table>
+      </div>
+      <div v-if="flag">
+        <el-button type="primary" class="addbtn" @click="addbtn"
+          >添加更多</el-button
+        >
+      </div>
+      <div v-else class="addbtn">
+        <el-button type="primary" @click="goadd">确认</el-button>
+        <el-button type="primary" @click="backadd">取消</el-button>
       </div>
     </el-card>
   </div>
@@ -63,8 +158,11 @@ export default {
   data() {
     return {
       value2: "",
+      flag2: true,
+      flag: true,
       Salary: [],
       labelarr: [
+        // { prop: "Salary", label: "薪资管理" },
         { prop: "expenditure", label: "计划支出" },
         { prop: "Actual", label: "实际支出" },
         { prop: "Lastmonth", label: "上月支出" },
@@ -74,7 +172,24 @@ export default {
   },
   methods: {
     tabclick(row, column, cell, event) {
-      console.log(cell);
+      console.log(row);
+    },
+    addbtn() {
+      this.flag = false;
+      this.Salary.push({
+        Actual: "",
+        Lastmonth: 0,
+        LastmonthActual: 0,
+        Salary: "",
+        expenditure: ""
+      });
+    },
+    backadd() {
+      this.flag = true;
+      this.Salary.unshift();
+    },
+    goadd() {
+      this.flag = true;
     }
   },
   mounted() {
@@ -92,7 +207,13 @@ export default {
   created() {},
   filters: {},
   computed: {},
-  watch: {},
+  watch: {
+    flag(val) {
+      console.log(val);
+      if (val) {
+      }
+    }
+  },
   directives: {}
 };
 </script>
@@ -135,10 +256,7 @@ header div:first-child {
 .text {
   margin: 10px;
 }
-  .el-input {
-    border: 0;
-    text-align: center;
-    margin: 10px;
-    padding: 10px 0;
-  }
+.addbtn {
+  margin: 20px;
+}
 </style>

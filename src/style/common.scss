@@ -5,3 +5,9 @@
   display: inline-block;
   margin-left: 10px;
 }
+.el_border_none {
+  .el-inp {
+    text-align: center;
+    border: 0px;
+  }
+}

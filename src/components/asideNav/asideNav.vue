@@ -1,7 +1,7 @@
 <template>
   <div class="asideNav">
     <el-menu
-      default-active="1"
+      :default-active="String(nowactive)"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       :collapse="isCollapsecode"
@@ -64,11 +64,7 @@
         >
       </el-submenu>
     </el-menu>
-    <el-dialog
-      title="通知"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
+    <el-dialog title="通知" :visible.sync="dialogVisible" width="30%">
       <span>{{ text }}</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -88,6 +84,7 @@ export default {
   props: {},
   data() {
     return {
+      nowactive: 1, //当前默认侧边选项
       dialogVisible: false,
       keyindex: 0, //第几段有new显示话
       text: "",
@@ -136,32 +133,44 @@ export default {
       this.keyindex = key;
       this.text = this.arr[this.keyindex - 1];
       if (Number(key) === 1) {
+        localStorage.setItem("nowactive", "1");
         this.$router.push("/");
       }
       if (Number(key) === 2) {
+        localStorage.setItem("nowactive", "2");
         this.$router.push("/scheduleManagement");
       }
       if (Number(key) === 3) {
+        localStorage.setItem("nowactive", "3");
         this.$router.push("/Maillist");
       }
       if (Number(key) === 4) {
+        localStorage.setItem("nowactive", "4");
         this.$router.push("/SalaryManagement/Organizationalpersonnel");
       }
       if (Number(key) === 5) {
+        localStorage.setItem("nowactive", "5");
         this.$router.push("/PersonnelInformation/Organizationalpersonnel");
       }
       if (Number(key) === 6) {
+        localStorage.setItem("nowactive", "6");
         this.$router.push("/OfferAdministration/Organizationalpersonnel");
       }
       if (Number(key) === 7) {
+        localStorage.setItem("nowactive", "7");
         this.$router.push("/Classificationform/From");
       }
     },
     handleOpen(key, keyPath) {
       // console.log(key, keyPath);
-    },
+    }
   },
   mounted() {
+    if (!localStorage.getItem("nowactive")) {
+      localStorage.setItem("nowactive", "1");
+    }
+    this.nowactive = localStorage.getItem("nowactive");
+    console.log(this.nowactive);
     // 获取是否新增
     this.$axios
       .req("api/getnew")

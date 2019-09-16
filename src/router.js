@@ -32,6 +32,14 @@ const router = new Router({
       }
     },
     {
+      path: "/Viewdetails",
+      name: "Viewdetails",
+      component: () => import("./views/Viewdetails/Viewdetails.vue"),
+      meta: {
+        title: "查看详情"
+      }
+    },
+    {
       path: "/Registrazione",
       name: "Registrazione",
       component: () => import("./views/Registrazione/Registrazione.vue"),

@@ -139,16 +139,16 @@ Mock.mock("api/OfferAdministration", "get", {
       cardidtype: "@cword(2,4)", //证件类型随机几个字
       "num|1-10000": 10000, //工号
       birth: "@date()", //随机时间出生
-      Entrytime:"@date()",//入职时间
+      Entrytime: "@date()", //入职时间
       "age|18-60": 60, //随机数字年龄
       city: "@city()", //随机城市工作
-      Nation:"@cword(2,4)",//民族
-      Nativeplace:"@county(true)",//出生城市
-      "Approval|1":["待发offer", "已发", "已接受", "已拒绝", "已入职"],//审批状态
+      Nation: "@cword(2,4)", //民族
+      Nativeplace: "@county(true)", //出生城市
+      "Approval|1": ["待发offer", "已发", "已接受", "已拒绝", "已入职"], //审批状态
       "study|1": ["初中", "高中", "大专", "本科", "硕士", "博士", "博士以上"], //学历
-      "marriagetype|1": ["已婚","未婚"], //婚姻状况
+      "marriagetype|1": ["已婚", "未婚"], //婚姻状况
       "position|1": ["经理", "主管", "员工", "实习生"], //职位
-      "sex|1": ["男","女"], //性别
+      "sex|1": ["男", "女"], //性别
       "department|1": [
         "成都分公司",
         "北京分公司",
@@ -200,10 +200,10 @@ Mock.mock("api/PersonnelInformation", "get", {
   "data|200": [
     {
       name: "@cname()", //随机姓名
-      flag:"@boolean",
+      flag: "@boolean",
       startdate: "@date()", //随机开始时间
       enddate: "@date()", //随机结束时间
-      maxdepartment:"区域中心",//机构
+      maxdepartment: "区域中心", //机构
       "position|1": ["经理", "主管", "员工", "实习生"], //职位
       "id|1000-9999": 9999, //工号
       "type|1": ["审核未通过", "审核中", "审核通过"],
@@ -259,10 +259,11 @@ Mock.mock("api/Salary", "get", {
     {
       Salary: "@cword(2,5)", //薪资构成
       "expenditure|0-1000000": 1000000, //计划支出
-      "Actual|0-1000000": 1000000,//实际支出
+      "Actual|0-1000000": 1000000, //实际支出
       "Lastmonth|0-1000000": 1000000, //上月支出
       "LastmonthActual|0-1000000": 1000000, //上月支出
-
+      flag: true,
+      flag1:true
     }
   ]
 });

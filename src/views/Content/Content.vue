@@ -42,7 +42,8 @@ export default {
   filters: {},
   computed: {
   },
-  watch: {},
+  watch: {
+  },
   directives: {}
 };
 </script>

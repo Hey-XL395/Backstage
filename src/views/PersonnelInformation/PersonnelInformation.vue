@@ -32,6 +32,7 @@
               ref="filterTable"
               :data="frommsg.slice((val - 1) * val1, val1 * val)"
               style="width: 100%"
+              stripe
               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="55" fix> </el-table-column>
