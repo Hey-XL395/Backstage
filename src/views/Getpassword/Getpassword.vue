@@ -1,11 +1,9 @@
 <template>
   <div class="Land dv_dv_dv1">
-    <el-card class="box-card ">
-      <!--      <div v-for="o in 4" :key="o" class="text item">-->
-      <!--      </div>-->
-    </el-card>
     <el-card class="Land1">
-      <p>请登录</p>
+      <div slot="header">
+        <span class="please">找回密码</span>
+      </div>
       <div class="middle1">
         <el-form
           :model="ruleForm"
@@ -20,19 +18,19 @@
           </el-form-item>
         </el-form>
         <br />
-          <el-form
-                  :model="ruleForm"
-                  :rules="rules"
-                  ref="ruleForm"
-                  label-width="130px"
-                  class="demo-ruleForm"
-                  label-position="left"
-          >
-              <el-form-item label="请输入邮箱" prop="mail">
-                  <el-input v-model="ruleForm.mail"></el-input>
-              </el-form-item>
-          </el-form>
-          <br />
+        <el-form
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="130px"
+          class="demo-ruleForm"
+          label-position="left"
+        >
+          <el-form-item label="请输入邮箱" prop="mail">
+            <el-input v-model="ruleForm.mail"></el-input>
+          </el-form-item>
+        </el-form>
+        <br />
         <div class="foot1">
           <el-row>
             <el-button
@@ -90,14 +88,27 @@ export default {
       this.$router.push("/Land");
     },
     getpassword() {
-      this.$axios.req('api/users/getpassword',{
-        username:this.ruleForm.name,
-        mail:this.ruleForm.mail
-      }).then(res=>{
-        console.log(res);
-      }).catch(e=>{
-        console.log(e);
-      })
+      if (this.ruleForm.name === "" || this.ruleForm.mail === "") {
+        this.$message({
+          message: "数据不能为空",
+          type:"error"
+        });
+      } else {
+        this.$axios
+          .req("api/users/getpassword", {
+            username: this.ruleForm.name,
+            mail: this.ruleForm.mail
+          })
+          .then(res => {
+            console.log(res);
+            this.$message({
+              message: res.data.msg
+            });
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
     }
   },
   mounted() {},
@@ -115,7 +126,7 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: url("../../assets/背景图片.jpg");
+  background-image: url("../../assets/海贼.jpg");
 }
 .Land1 {
   width: 700px;
@@ -131,6 +142,12 @@ export default {
   border-bottom: skyblue solid 2px;
   text-align: center;
   padding: 10px;
+}
+.please {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
 }
 .middle1 {
   width: 500px;
@@ -156,5 +173,8 @@ export default {
   margin-top: 20px;
   width: 110px;
   height: 50px;
+}
+.el-card__body {
+  padding: 0;
 }
 </style>

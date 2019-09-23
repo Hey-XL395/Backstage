@@ -41,7 +41,8 @@
               <el-input
                 v-show="!scope.row.flag2"
                 size="small"
-                @blur="scope.row.flag2 = !scope.row.flag2"
+                @blur="changeshow2(scope)"
+                @keydown.enter.native="scope.row.flag2 = !scope.row.flag2"
                 v-model="scope.row.Salary"
                 style="width:200px"
               ></el-input>
@@ -65,7 +66,8 @@
               <el-input
                 v-show="!scope.row.flag"
                 size="small"
-                @blur="scope.row.flag = !scope.row.flag"
+                @blur="changeshow1(scope)"
+                @keydown.enter.native="scope.row.flag = !scope.row.flag"
                 v-model="scope.row.expenditure"
                 style="width:200px"
               ></el-input>
@@ -86,7 +88,8 @@
               <el-input
                 v-show="!scope.row.flag1"
                 size="small"
-                @blur="scope.row.flag1 = !scope.row.flag1"
+                @blur="changeshow3(scope)"
+                @keydown.enter.native="scope.row.flag1 = !scope.row.flag1"
                 v-model="scope.row.Actual"
                 style="width:200px"
               ></el-input>
@@ -175,6 +178,21 @@ export default {
     tabclick(row, column, cell, event) {
       console.log(row);
     },
+    changeshow1(scope){
+      if (scope.row.expenditure !== ""){
+        scope.row.flag = !scope.row.flag
+      }
+    },
+    changeshow2(scope){
+      if (scope.row.Salary !== ""){
+        scope.row.flag2 = !scope.row.flag2
+      }
+    },
+    changeshow3(scope){
+      if (scope.row.Actual !== ""){
+        scope.row.flag1 = !scope.row.flag1
+      }
+    },
     addbtn() {
       this.flag = false;
       this.Salary.push({
@@ -190,7 +208,7 @@ export default {
     },
     backadd() {
       this.flag = true;
-      this.Salary.unshift();
+      this.Salary = this.Salary.splice(0,this.Salary.length-1);
     },
     goadd() {
       console.log();

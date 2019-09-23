@@ -150,4 +150,16 @@ const router = new Router({
     }
   ]
 });
+router.beforeEach((to, from, next) => {
+  if (to.path === "/Land" || to.path === "/Registrazione" ||to.path === "/Getpassword") {
+    next();
+  } else {
+    if (localStorage.user) {
+      next();
+    } else {
+      next({ path: "/Land" });
+    }
+  }
+});
 export default router;
+

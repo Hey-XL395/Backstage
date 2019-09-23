@@ -133,6 +133,7 @@ export default {
 .Maillist {
   display: flex;
   justify-content: space-around;
+  align-items:flex-start;
 }
 .leftmsg {
   width: 20%;

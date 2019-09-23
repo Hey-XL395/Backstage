@@ -164,6 +164,7 @@ export default {
       this.active--;
     },
     newpage() {
+      // this.$router.push({path:"/",query})
       let routeData = this.$router.resolve({
         path: "/Viewdetails",
         query: {

@@ -246,7 +246,6 @@ export default {
   background: #ff55bb;
   position: absolute;
   right: 0;
-  z-index: 99;
   transform: translateY(-50%);
   top: 50%;
 }

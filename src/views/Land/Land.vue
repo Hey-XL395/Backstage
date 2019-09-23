@@ -1,11 +1,9 @@
 <template>
   <div class="Land dv_dv_dv1">
-    <el-card class="box-card ">
-      <!--      <div v-for="o in 4" :key="o" class="text item">-->
-      <!--      </div>-->
-    </el-card>
     <el-card class="Land1">
-      <p>请登录</p>
+      <div slot="header" class="clearfix">
+        <span class="please">请登录</span>
+      </div>
       <div class="middle1">
         <el-form
           :model="ruleForm"
@@ -32,10 +30,16 @@
             <!--            隐藏密码-->
             <div class="passwordnone">
               <el-input
-                      type="password"
-                      v-model="ruleForm.password"
-                      autocomplete="off"
-              ></el-input><el-button type="primary" class="passwordnone1" @click="getpassword">忘记密码</el-button>
+                type="password"
+                v-model="ruleForm.password"
+                autocomplete="off"
+              ></el-input
+              ><el-button
+                type="primary"
+                class="passwordnone1"
+                @click="getpassword"
+                >忘记密码</el-button
+              >
             </div>
           </el-form-item>
         </el-form>
@@ -63,6 +67,11 @@
               :plain="true"
               >登陆</el-button
             >
+            <div class="github">
+              <a href="api/users/githubLogin" @click="gethubuser"
+                ><img src="../../assets/github.png" alt=""
+              /></a>
+            </div>
             <el-button class="btn" type="primary" @click="Add" :plain="true"
               >注册</el-button
             >
@@ -120,6 +129,9 @@ export default {
           type: "warning"
         });
         this.getCaptcha();
+      } else {
+        // 转换成小写
+        this.ruleForm.Verification = this.ruleForm.Verification.toLowerCase();
       }
       if (
         this.ruleForm.name !== "" &&
@@ -139,14 +151,7 @@ export default {
               this.msg = res.data;
               if (this.msg.code === 500) {
                 this.$message({
-                  message: "用户名或密码错误",
-                  type: "error"
-                });
-                this.getCaptcha();
-              }
-              if (this.msg.code === 1) {
-                this.$message({
-                  message: this.msg.message,
+                  message: res.data.msg,
                   type: "error"
                 });
                 this.getCaptcha();
@@ -154,6 +159,10 @@ export default {
               if (this.msg.code === 200) {
                 // 保存到本地
                 localStorage.setItem("user", this.ruleForm.name);
+                localStorage.setItem(
+                  "usermsg",
+                  JSON.stringify(this.msg.data.user)
+                );
                 this.$store.state.user = this.ruleForm.name;
                 // 在跳转，不然第一次进不去
                 this.$router.push("/");
@@ -174,7 +183,7 @@ export default {
           });
       }
     },
-    getpassword(){
+    getpassword() {
       this.$router.push("../Getpassword");
     },
     Add() {
@@ -188,6 +197,20 @@ export default {
         .req("api/users/captcha")
         .then(req => {
           this.Captcha = req.data;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    gethubuser() {
+      this.$axios
+        .req("api/users/githubUser")
+        .then(res => {
+          console.log(res);
+          if (res.data.code === 200) {
+              localStorage.setItem("user",res.data.data.login)
+              localStorage.setItem("usermsg",JSON.stringify(res.data.data))
+          }
         })
         .catch(e => {
           console.log(e);
@@ -211,7 +234,7 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: url("../../assets/背景图片.jpg");
+  background-image: url("../../assets/海贼.jpg");
   /*background-image: url("../../assets/猪.jpg");*/
 }
 .Land1 {
@@ -235,6 +258,12 @@ export default {
 }
 .passwordnone1 {
   margin-left: 10px;
+}
+.please {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
 }
 .middle1 {
   width: 500px;
@@ -261,5 +290,10 @@ export default {
   margin-top: 20px;
   width: 110px;
   height: 50px;
+}
+.github {
+  display: inline-block;
+  margin: 10px;
+  vertical-align: middle;
 }
 </style>

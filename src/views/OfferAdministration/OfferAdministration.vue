@@ -33,17 +33,19 @@
             :data="Offerlist.slice((val - 1) * val1, val1 * val)"
             style="width: 100%"
             @selection-change="handleSelectionChange"
+            fit
           >
-            <el-table-column type="selection" width="55" fit> </el-table-column>
+            <el-table-column type="selection"> </el-table-column>
             <el-table-column
               v-for="item in leftfields"
               :prop="item.prop"
               :label="item.label"
+              :width="width"
               header-align="center"
               align="center"
             >
             </el-table-column>
-            <el-table-column width="225" header-align="center" align="center">
+            <el-table-column header-align="center" align="center">
               <template slot="header" slot-scope="scope">
                 <el-popover
                   ref="popover3"
@@ -55,7 +57,7 @@
                     <div class="el-button_">
                       <el-popover
                         placement="left"
-                        width="180"
+                        width="100"
                         trigger="click"
                         content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
                         v-model="visible"
@@ -67,6 +69,7 @@
                           <el-checkbox
                             :label="item.label"
                             @change="checktype(item, index)"
+                            v-model="item.flag"
                           ></el-checkbox>
                         </div>
                         <div style="text-align: right; margin: 0">
@@ -83,7 +86,7 @@
                       </el-popover>
                       <el-popover
                         placement="right"
-                        width="180"
+                        width="100"
                         trigger="click"
                         content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
                         v-model="visible1"
@@ -92,6 +95,7 @@
                           <el-checkbox
                             :label="item.label"
                             @change="checktype1(item, index)"
+                            v-model="item.flag"
                           ></el-checkbox>
                         </div>
                         <div style="text-align: right; margin: 0">
@@ -110,9 +114,7 @@
                     <el-divider></el-divider>
                     <div>选择间距类型</div>
                     <div class="el-button_">
-                      <el-button type="text">紧凑</el-button
-                      ><el-button type="text" autofocus>适中</el-button
-                      ><el-button type="text">宽松</el-button>
+                      <span v-for="(item,index) in size" :class="{color:index === index1}" @click="sizewidth(index)">{{ item }}</span>
                     </div>
                   </div>
                   <span slot="reference"><i class="el-icon-setting"></i></span>
@@ -146,101 +148,105 @@ export default {
   props: {},
   data() {
     return {
+      size: ["紧凑", "适中", "宽松"],
+      index1:0,//动态class
+      width:180,
       visible: false, //右侧的两个pop
       visible1: false,
       val: 1,
       val1: 30,
       Allfields: [
-        { prop: "name", label: "姓名" },
-        { prop: "email", label: "个人邮箱" },
-        { prop: "cardidtype", label: "证件类型" },
-        { prop: "cardid", label: "证件号码" },
-        { prop: "sex", label: "性别" },
-        { prop: "position", label: "职位" },
-        { prop: "Nativeplace", label: "籍贯" },
-        { prop: "qq", label: "qq" },
-        { prop: "Entrytime", label: "入职时间" },
-        { prop: "Approval", label: "offer状态" },
-        { prop: "birth", label: "出生日期" },
-        { prop: "Nation", label: "民族" },
-        { prop: "telphone", label: "电话" },
-        { prop: "study", label: "学历" },
-        { prop: "phone", label: "手机" },
-        { prop: "city", label: "工作地点" },
-        { prop: "department", label: "部门" },
-        { prop: "marriagetype", label: "婚姻状况" }
+        { prop: "name", label: "姓名", flag: false },
+        { prop: "email", label: "个人邮箱", flag: false },
+        { prop: "cardidtype", label: "证件类型", flag: false },
+        { prop: "cardid", label: "证件号码", flag: false },
+        { prop: "sex", label: "性别", flag: false },
+        { prop: "position", label: "职位", flag: false },
+        { prop: "Nativeplace", label: "籍贯", flag: false },
+        { prop: "qq", label: "qq", flag: false },
+        { prop: "Entrytime", label: "入职时间", flag: false },
+        { prop: "Approval", label: "offer状态", flag: false },
+        { prop: "birth", label: "出生日期", flag: false },
+        { prop: "Nation", label: "民族", flag: false },
+        { prop: "telphone", label: "电话", flag: false },
+        { prop: "study", label: "学历", flag: false },
+        { prop: "phone", label: "手机", flag: false },
+        { prop: "city", label: "工作地点", flag: false },
+        { prop: "department", label: "部门", flag: false },
+        { prop: "marriagetype", label: "婚姻状况", flag: false }
       ],
-      leftfields: [], //左侧标题数量数据
-      list: [], //同上中间数组
+      leftfields: [], //左侧标题数量数据以及最右侧pop
+      arr: [], //同上中间数组
       rigthfields: [], //右侧pop标题数量数据
       currentPage: 1,
       Offerlist: [],
       maxOfferlist: [], //大的
       cardtitle: [
         { name: "待发offer", num: 0 },
-        { name: "已发", num: 2 },
-        { name: "已接受", num: 2 },
-        { name: "已拒绝", num: 2 },
-        { name: "已入职", num: 2 }
+        { name: "已发", num: 0 },
+        { name: "已接受", num: 0 },
+        { name: "已拒绝", num: 0 },
+        { name: "已入职", num: 0 }
       ], //卡片头
       num: 2, //上述对应有几个
       num1: 9 //默认显示9个标题
     };
   },
   methods: {
+    sizewidth(index){
+      this.index1 = index
+      console.log(index);
+      if (index === 0) this.width = 180
+      if (index === 1) this.width = 190
+      if (index === 2) this.width = 210
+      console.log(this.width);
+    },
     //处理左右数据，该显示什么确定按钮
     showtable() {
-      let i = 0;
-      this.list.map(item => {
-        this.leftfields.push(this.Allfields[item + this.num1]);
-        this.rigthfields.splice(item,1)
-        i++;
-      });
-      this.num1 += i;
-      this.list =[]
       this.visible = false;
+      // this.leftfields = this.leftfields.concat(this.arr)
+      this.arr.map(item => {
+        this.leftfields.push(item);
+        // 过滤掉当前已添加的
+        this.rigthfields = this.rigthfields.filter(item1 => {
+          return JSON.stringify(item1) !== JSON.stringify(item);
+        });
+      });
     },
     // pop的选择框右侧确定
     showtable1() {
-      this.list.map(item => {
-        this.leftfields.splice(item, 1);
-        this.rigthfields.push(this.Allfields[item])
-      });
-      console.log(this.leftfields);
-      this.list =[]
       this.visible1 = false;
+      // this.rigthfields = this.rigthfields.concat(this.arr)
+      this.arr.map(item => {
+        this.rigthfields.push(item);
+        this.leftfields = this.leftfields.filter(item1 => {
+          return JSON.stringify(item1) !== JSON.stringify(item);
+        });
+      });
     },
     // pop的选择框左侧
     checktype(item, index) {
-      console.log(item);
-      console.log(index);
-      if (this.list.indexOf(index) === -1) {
-        this.list.push(index);
+      // console.log(item);
+      if (item.flag) {
+        this.arr.push(item);
       } else {
-        this.list = this.list.filter(item1 => {
-          return item1 !== index;
+        this.arr = this.arr.filter(item1 => {
+          return JSON.stringify(item1) !== JSON.stringify(item);
         });
       }
-      console.log(this.list);
-      // if (JSON.stringify(this.list).indexOf(JSON.stringify(item)) === -1){
-      //   item.index = index
-      //   this.list.push(item)
-      // }else {
-      //   this.list = this.list.slice(0,1)
-      // }
-      // console.log(this.list);
+      console.log(this.arr);
     },
     // pop的选择框右侧
     checktype1(item, index) {
-      console.log(item);
-      if (this.list.indexOf(index) === -1) {
-        this.list.push(index);
+      // console.log(item);
+      if (item.flag) {
+        this.arr.push(item);
       } else {
-        this.list = this.list.filter(item1 => {
-          return item1 !== index;
+        this.arr = this.arr.filter(item1 => {
+          return JSON.stringify(item1) !== JSON.stringify(item);
         });
       }
-      console.log(this.list);
+      // console.log(this.arr);
     },
     //设置按钮
     // couponClick(index, row) {
@@ -249,7 +255,7 @@ export default {
     handleSelectionChange() {},
     //头部过滤
     filtertype(item1) {
-      console.log(item1.name);
+      // console.log(item1.name);
       this.Offerlist = this.maxOfferlist.filter(item => {
         return JSON.stringify(item).indexOf(item1.name) !== -1;
       });
@@ -265,19 +271,15 @@ export default {
     this.$axios
       .req("api/OfferAdministration")
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.Offerlist = res.data.data;
         this.maxOfferlist = res.data.data;
-        //应该有更方便的做法
-        // let group = _.groupBy(this.maxOfferlist, "已发");
-        // console.log(group);
-        let i = 0;
-        this.maxOfferlist.map(item => {
-          if (item.Approval === "待发offer") {
-            i++;
-          }
-        });
-        this.cardtitle[0].num = i;
+        let group = _.groupBy(this.maxOfferlist, "Approval");
+        this.cardtitle[0].num = group["待发offer"].length;
+        this.cardtitle[1].num = group["已发"].length;
+        this.cardtitle[2].num = group["已接受"].length;
+        this.cardtitle[3].num = group["已拒绝"].length;
+        this.cardtitle[4].num = group["已入职"].length;
         this.leftfields = this.Allfields.slice(0, 9);
         this.rigthfields = this.Allfields.slice(9, this.Allfields.length);
         // localStorage.setItem("Allfields",this.cardtitle)
@@ -301,11 +303,26 @@ export default {
     visibletype(val, oldval) {
       if (oldval === false) {
         this.visible1 = false;
+        // 显示pop将所有对勾去掉
+        this.leftfields.map(item => {
+          item.flag = false;
+        });
+        this.rigthfields.map(item => {
+          item.flag = false;
+        });
+        this.arr = [];
       }
     },
     visibletype1(val, oldval) {
       if (oldval === false) {
         this.visible = false;
+        this.rigthfields.map(item => {
+          item.flag = false;
+        });
+        this.leftfields.map(item => {
+          item.flag = false;
+        });
+        this.arr = [];
       }
     }
   },
@@ -330,4 +347,7 @@ header div:first-child {
   display: flex;
   justify-content: space-around;
 }
+  .color {
+    color: #1a83e2;
+  }
 </style>

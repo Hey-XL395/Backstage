@@ -1,7 +1,9 @@
 <template>
   <div class="Land dv_dv_dv1">
     <el-card class="Land1">
-      <p>请注册账号</p>
+      <div slot="header">
+        <span class="please">请注册账号</span>
+      </div>
       <div class="middle1">
         <el-form
           :model="ruleForm"
@@ -305,13 +307,19 @@ export default {
   left: 0;
   bottom: 0;
   background-color: skyblue;
-  background-image: url("../../assets/背景图片.jpg");
+  background-image: url("../../assets/海贼.jpg");
 }
 .Land1 {
   width: 700px;
   height: 700px;
   background-color: white;
   margin: 100px auto;
+}
+.please {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
 }
 .Land1 p {
   font-size: 20px;

@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       msg: "",
-      maxmsg:"",
+      maxmsg: "",
       flag: false
     };
   },
@@ -44,14 +44,9 @@ export default {
   filters: {},
   computed: {},
   watch: {
-    $route: {
-      handler(val) {
-        // console.log(val);//新路由信息
-        this.msg = val.meta.title;
-        this.maxmsg = val.meta.maxtitle
-      },
-      // 深度观察监听
-      deep: true
+    $route(val) {
+      this.maxmsg = val.meta.maxtitle;
+      this.msg = val.meta.title
     }
   },
   directives: {}
