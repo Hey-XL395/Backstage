@@ -175,7 +175,7 @@ export default {
     //时间改变触发
     datechange(val) {
       val = this.$moment(val).format("YYYY年MM月DD日");
-      console.log(val);
+      //console.log(val);
       this.smallDynamic = [];
       this.allDynamic.map(item => {
         if (item.time === val) {
@@ -212,7 +212,7 @@ export default {
             (this.form.name = "");
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
           this.$message({
             message: "发布失败",
             type: "warning"
@@ -244,7 +244,7 @@ export default {
           });
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     }
   },
@@ -259,7 +259,7 @@ export default {
         this.name = res.data.data;
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
     // 获取城市
     this.$axios
@@ -272,7 +272,7 @@ export default {
         this.chartData.rows = res.data.data;
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},

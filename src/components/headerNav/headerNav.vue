@@ -23,14 +23,14 @@
         @click="changelanguage"
         v-if="$i18n.locale === 'en'"
       />
-      <img
-        :src="uploaddata.avatar"
-        alt=""
-        class="userpig"
-        v-if="uploaddata.avatar"
-      />
+              <img
+                      :src="uploaddata.avatar"
+                      alt=""
+                      class="userpig"
+                      v-if="uploaddata.avatar"
+              />
       <img :src="uploaddata.avatar_url" alt="" class="userpig" v-if="uploaddata.avatar_url">
-      <img src="../../assets/用户.png" alt="" class="userpig" v-else />
+      <img src="../../assets/用户.png" alt="" class="userpig" v-if="uploaddata.avatar ===undefined && uploaddata.avatar_url === undefined" />
       {{ $t("menu.hello") }} {{ $t("menu.Dear") }} {{ user }}
       <el-popover placement="bottom" trigger="click">
         <div class="popdv">
@@ -140,7 +140,7 @@ export default {
   methods: {
     //上传头像
     handleAvatarSuccess(res, file) {
-      console.log(file);
+      // //console.log(file);
       if (file.response.code === 500) {
         this.$message("上传失败");
       } else {
@@ -151,10 +151,10 @@ export default {
         //     url: file.response.url
         //   })
         //   .then(res => {
-        //     console.log(res);
+        //     //console.log(res);
         //   })
         //   .catch(e => {
-        //     console.log(e);
+        //     //console.log(e);
         //   });
         this.$message({
             type:"success",
@@ -162,6 +162,7 @@ export default {
         });
         this.dialogVisible = false
         this.uploaddata.avatar = file.response.url;
+        // console.log(this.uploaddata.avatar);
         let arr = JSON.parse(localStorage.getItem("usermsg"));
         arr.avatar = file.response.url;
         localStorage.setItem("usermsg", JSON.stringify(arr));
@@ -195,7 +196,7 @@ export default {
         if (valid) {
           this.Determine();
         } else {
-          console.log("error submit!!");
+          // //console.log("error submit!!");
           return false;
         }
       });
@@ -218,7 +219,7 @@ export default {
           });
         } else {
           let usermsg = JSON.parse(localStorage.getItem("usermsg"));
-          console.log(usermsg);
+          //console.log(usermsg);
           this.$axios
             .req("api/users/updatePwd", {
               username: usermsg.username,
@@ -240,10 +241,10 @@ export default {
                   message: res.data.msg
                 });
               }
-              console.log(res);
+              ////console.log(res);
             })
             .catch(e => {
-              console.log(e);
+              ////console.log(e);
             });
         }
       }
@@ -279,7 +280,7 @@ export default {
     },
     //更换语言
     changelanguage() {
-      console.log(this.$i18n.locale);
+      //console.log(this.$i18n.locale);
       //改变element组件国际化
       // if (this.value === "en") {
       //   this.value = "zh";
@@ -296,13 +297,12 @@ export default {
       } else if (this.$i18n.locale === "en") {
         this.$i18n.locale = "zh";
       }
-      console.log(this.$i18n.locale);
+      //console.log(this.$i18n.locale);
     }
   },
   mounted() {
     this.user = localStorage.getItem("user");
     this.uploaddata = JSON.parse(localStorage.getItem("usermsg"));
-    console.log(this.uploaddata);
     this.$i18n.locale = "zh";
   },
   created() {},

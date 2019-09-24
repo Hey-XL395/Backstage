@@ -100,13 +100,13 @@ export default {
             mail: this.ruleForm.mail
           })
           .then(res => {
-            console.log(res);
+            //console.log(res);
             this.$message({
               message: res.data.msg
             });
           })
           .catch(e => {
-            console.log(e);
+            //console.log(e);
           });
       }
     }

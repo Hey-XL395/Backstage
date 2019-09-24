@@ -181,7 +181,7 @@ export default {
         if (valid) {
           if (this.active++ > 2) this.active = 1;
         } else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });

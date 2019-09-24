@@ -78,7 +78,7 @@ Mock.mock("api/maillist", "get", {
       "position|1": ["经理", "主管", "员工", "实习生"], //职位
       color: "@color()", //头像图片随机颜色
       cardid: "@id()", //身份证
-      "sex|1": ["男，女"], //性别
+      "sex|1": ["男","女"], //性别
       "department|1": [
         "成都分公司",
         "北京分公司",

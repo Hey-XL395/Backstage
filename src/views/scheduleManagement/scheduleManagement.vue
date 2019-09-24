@@ -120,14 +120,13 @@ export default {
     // },
     //删除日程
     delCalendar() {
-      console.log(this.id);
-
+      //console.log(this.id);
       this.$axios
         .req("api/delCalendar", {
           id: this.id
         })
         .then(res => {
-          console.log(res);
+          //console.log(res);
           this.dialogVisible1 = false;
           this.addcalendar();
           this.$message({
@@ -136,7 +135,7 @@ export default {
           });
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     },
     //添加日程
@@ -168,13 +167,13 @@ export default {
             this.addcalendar();
           })
           .catch(e => {
-            console.log(e);
+            //console.log(e);
           });
       }
     },
     // 点击事件
     eventClick(event, jsEvent, pos) {
-      console.log("eventClick", event, jsEvent, pos);
+      //console.log("eventClick", event, jsEvent, pos);
       if (
         this.$moment(event.startTime).format("YYYYMMDD") <
         this.$moment(Date.now()).format("YYYYMMDD")
@@ -188,7 +187,7 @@ export default {
         this.id = event._id;
       }
     },
-    eventRender: function(event, element) {
+    eventRender(event, element) {
       let starttime = this.$moment(event.startTime).format("HH:mm");
       let endtime = this.$moment(event.endTime).format("HH:mm");
       element[0].innerHTML =
@@ -209,8 +208,8 @@ export default {
     },
     // 点击当天
     dayClick(day, jsEvent) {
-      // console.log(jsEvent);
-      console.log(day);
+      // //console.log(jsEvent);
+      //console.log(day);
       //处理成纯数字好比较大小，排除时分秒干扰
       this.clickday = this.$moment(day._i).format("YYYYMMDD");
       this.nowday = this.$moment(Date().now).format("YYYYMMDD");
@@ -228,7 +227,7 @@ export default {
       this.$axios
         .req("api/calendar")
         .then(res => {
-          console.log(res);
+          //console.log(res);
           this.events = res.data.data;
           res.data.data.map(item => {
             this.$set(item, "color", "rgba(109, 169, 24, 0.5)");
@@ -240,7 +239,7 @@ export default {
           });
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     }
   },

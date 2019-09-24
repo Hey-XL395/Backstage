@@ -176,7 +176,7 @@ export default {
   },
   methods: {
     tabclick(row, column, cell, event) {
-      console.log(row);
+      //console.log(row);
     },
     changeshow1(scope){
       if (scope.row.expenditure !== ""){
@@ -211,7 +211,7 @@ export default {
       this.Salary = this.Salary.splice(0,this.Salary.length-1);
     },
     goadd() {
-      console.log();
+      //console.log();
       let arr = this.Salary[this.Salary.length - 1];
       if (
         arr.Actual.length > 0 &&
@@ -232,11 +232,11 @@ export default {
     this.$axios
       .req("api/Salary")
       .then(res => {
-        console.log(res.data.data);
+        //console.log(res.data.data);
         this.Salary = res.data.data;
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},
@@ -244,7 +244,7 @@ export default {
   computed: {},
   watch: {
     flag(val) {
-      console.log(val);
+      //console.log(val);
       if (val) {
       }
     }

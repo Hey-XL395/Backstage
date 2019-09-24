@@ -38,7 +38,7 @@ export default {
       },
       Printing(){
           let newstr = document.getElementsByClassName('dialogCare')[0].innerHTML;
-          console.log(newstr)
+          //console.log(newstr)
           window.document.body.innerHTML = newstr;
           let oldstr = window.document.body.innerHTML;
           window.print();

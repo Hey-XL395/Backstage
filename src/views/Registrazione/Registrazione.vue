@@ -9,7 +9,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm"
           label-position="left"
         >
@@ -22,7 +22,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm"
           label-position="left"
         >
@@ -39,7 +39,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm-Verification"
           label-position="left"
         >
@@ -56,7 +56,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm"
           label-position="left"
         >
@@ -73,7 +73,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm"
           label-position="left"
         >
@@ -90,7 +90,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
-          label-width="130px"
+          label-width="140px"
           class="demo-ruleForm"
           label-position="left"
         >
@@ -199,7 +199,7 @@ export default {
           .then(res => {
             this.flag1 = true;
             this.flag3 = true;
-            console.log(res);
+            //console.log(res);
             this.$message({
               type: "success",
               message: res.data.msg
@@ -213,11 +213,11 @@ export default {
                 this.num = 60;
                 this.flag3 = false;
               }
-              console.log(this.num);
+              //console.log(this.num);
             }, 1000);
           })
           .catch(e => {
-            console.log(e);
+            //console.log(e);
           });
       }
     },
@@ -270,7 +270,7 @@ export default {
           })
           .then(req => {
             this.msg = req.data;
-            console.log(this.msg);
+            //console.log(this.msg);
             if (this.msg.code === 500) {
               this.$message({
                 message: this.msg.msg,
@@ -285,7 +285,7 @@ export default {
             }
           })
           .catch(e => {
-            console.log(e);
+            //console.log(e);
           });
       }
     }
@@ -350,7 +350,7 @@ export default {
   justify-content: space-around;
 }
 .btn {
-  margin-top: 20px;
+  margin-top: 5px;
   width: 110px;
   height: 50px;
 }

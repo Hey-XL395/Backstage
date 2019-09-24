@@ -38,7 +38,7 @@ export default {
     // if (!this.$store.state.lablecode) {
     //   this.$store.state.lablecode = true;
     // }
-    // console.log(this.$store.state.lablecode);
+    // //console.log(this.$store.state.lablecode);
   },
   created() {},
   filters: {},

@@ -101,11 +101,11 @@ export default {
       }
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      //console.log(`每页 ${val} 条`);
       this.val = val;
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      //console.log(`当前页: ${val}`);
       this.val1 = val;
     }
   },
@@ -115,10 +115,10 @@ export default {
       .then(res => {
         this.maillist = res.data.data;
         this.alllist = res.data.data;
-        console.log(res);
+        // console.log(res);
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},
@@ -173,7 +173,7 @@ export default {
   flex-wrap: wrap;
 }
 .box-div {
-  width: 32%;
+  width: 31%;
   margin: 10px;
 }
 .topbac {

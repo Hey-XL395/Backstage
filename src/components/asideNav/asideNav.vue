@@ -162,7 +162,7 @@ export default {
       }
     },
     handleOpen(key, keyPath) {
-      // console.log(key, keyPath);
+      // //console.log(key, keyPath);
     }
   },
   mounted() {
@@ -170,7 +170,7 @@ export default {
       localStorage.setItem("nowactive", "1");
     }
     this.nowactive = localStorage.getItem("nowactive");
-    console.log(this.nowactive);
+    //console.log(this.nowactive);
     // 获取是否新增
     this.$axios
       .req("api/getnew")
@@ -183,7 +183,7 @@ export default {
         });
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},
@@ -199,8 +199,8 @@ export default {
   },
   watch: {
     languagedata(val, oldval) {
-      // console.log(val);
-      // console.log(oldval);
+      // //console.log(val);
+      // //console.log(oldval);
       this.bigclass[0].title = this.$t("content.home");
       this.bigclass[1].title = this.$t("content.Schedule");
       this.bigclass[2].title = this.$t("content.Maillist");

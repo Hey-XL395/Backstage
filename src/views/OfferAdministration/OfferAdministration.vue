@@ -195,11 +195,11 @@ export default {
   methods: {
     sizewidth(index){
       this.index1 = index
-      console.log(index);
+      //console.log(index);
       if (index === 0) this.width = 180
       if (index === 1) this.width = 190
       if (index === 2) this.width = 210
-      console.log(this.width);
+      //console.log(this.width);
     },
     //处理左右数据，该显示什么确定按钮
     showtable() {
@@ -226,7 +226,7 @@ export default {
     },
     // pop的选择框左侧
     checktype(item, index) {
-      // console.log(item);
+      // //console.log(item);
       if (item.flag) {
         this.arr.push(item);
       } else {
@@ -234,11 +234,11 @@ export default {
           return JSON.stringify(item1) !== JSON.stringify(item);
         });
       }
-      console.log(this.arr);
+      //console.log(this.arr);
     },
     // pop的选择框右侧
     checktype1(item, index) {
-      // console.log(item);
+      // //console.log(item);
       if (item.flag) {
         this.arr.push(item);
       } else {
@@ -246,16 +246,16 @@ export default {
           return JSON.stringify(item1) !== JSON.stringify(item);
         });
       }
-      // console.log(this.arr);
+      // //console.log(this.arr);
     },
     //设置按钮
     // couponClick(index, row) {
-    //   console.log(row);
+    //   //console.log(row);
     // },
     handleSelectionChange() {},
     //头部过滤
     filtertype(item1) {
-      // console.log(item1.name);
+      // //console.log(item1.name);
       this.Offerlist = this.maxOfferlist.filter(item => {
         return JSON.stringify(item).indexOf(item1.name) !== -1;
       });
@@ -271,7 +271,7 @@ export default {
     this.$axios
       .req("api/OfferAdministration")
       .then(res => {
-        // console.log(res);
+        // //console.log(res);
         this.Offerlist = res.data.data;
         this.maxOfferlist = res.data.data;
         let group = _.groupBy(this.maxOfferlist, "Approval");
@@ -285,7 +285,7 @@ export default {
         // localStorage.setItem("Allfields",this.cardtitle)
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},

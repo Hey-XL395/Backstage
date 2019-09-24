@@ -102,7 +102,6 @@ export default {
     return {
       index1: 0, //动态class
       startVal: 0,
-      progress: 10,
       topmessage: [], //头部数据
       isDurationModel: true, // 是否打开持续缓动模式
       isShow: true,
@@ -131,9 +130,9 @@ export default {
       this.$axios
         .req("api/price")
         .then(res => {
-          // console.log(res);
+          // //console.log(res);
           let arr = [];
-          // 注释注释注释注释注释
+          // 注释注释注释注释注释  传值失败，数据未变化，是因为赋值方式不对，ste方式也不对
           res.data.data.map((item, index) => {
             if (index === 0) {
               this.$set(item, "title", "本月营收(元)");
@@ -146,10 +145,10 @@ export default {
             }
           });
           this.topmessage = res.data.data;
-          // console.log(this.topmessage);
+          // //console.log(this.topmessage);
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     }
   },
@@ -245,7 +244,7 @@ export default {
   height: 30px;
   background: #ff55bb;
   position: absolute;
-  right: 0;
+  right: 1px;
   transform: translateY(-50%);
   top: 50%;
 }

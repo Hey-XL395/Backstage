@@ -149,7 +149,7 @@ export default {
   methods: {
     //点击多选框
     handleSelectionChange(val) {
-      console.log(val);
+      //console.log(val);
       this.checktype = val;
       // this.checktype.map(item=>{
       //   item.type = "审核通过"
@@ -167,7 +167,7 @@ export default {
     },
     // 确认
     confirmConverted() {
-      console.log(1);
+      //console.log(1);
       if (this.checktype.length === 0){
         this.$message({
           message:"一条数据都没有",
@@ -213,7 +213,7 @@ export default {
       });
     },
     filterHandler(value, row, column) {
-      // console.log(column);
+      // //console.log(column);
       const property = column["property"];
       return row[property] === value;
     },
@@ -230,10 +230,10 @@ export default {
       .then(res => {
         this.frommsg = res.data.data;
         this.maxfrommsg = res.data.data;
-        console.log(res);
+        //console.log(res);
       })
       .catch(e => {
-        console.log(e);
+        //console.log(e);
       });
   },
   created() {},

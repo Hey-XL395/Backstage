@@ -147,7 +147,7 @@ export default {
           })
           .then(res => {
             if (res) {
-              console.log(res.data);
+              //console.log(res.data);
               this.msg = res.data;
               if (this.msg.code === 500) {
                 this.$message({
@@ -179,7 +179,7 @@ export default {
             }
           })
           .catch(e => {
-            console.log(e);
+            //console.log(e);
           });
       }
     },
@@ -199,21 +199,21 @@ export default {
           this.Captcha = req.data;
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     },
     gethubuser() {
       this.$axios
         .req("api/users/githubUser")
         .then(res => {
-          console.log(res);
+          //console.log(res);
           if (res.data.code === 200) {
               localStorage.setItem("user",res.data.data.login)
               localStorage.setItem("usermsg",JSON.stringify(res.data.data))
           }
         })
         .catch(e => {
-          console.log(e);
+          //console.log(e);
         });
     }
   },
