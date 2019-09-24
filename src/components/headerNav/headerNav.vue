@@ -29,8 +29,8 @@
                       class="userpig"
                       v-if="uploaddata.avatar"
               />
-      <img :src="uploaddata.avatar_url" alt="" class="userpig" v-if="uploaddata.avatar_url">
-      <img src="../../assets/用户.png" alt="" class="userpig" v-if="uploaddata.avatar ===undefined && uploaddata.avatar_url === undefined" />
+      <img :src="uploaddata.avatar_url" alt="" class="userpig" v-if="uploaddata.avatar_url && uploaddata.avatar === undefined">
+      <img src="../../assets/用户.png" alt="" class="userpig" v-if="uploaddata.avatar_url === undefined && uploaddata.avatar === undefined" />
       {{ $t("menu.hello") }} {{ $t("menu.Dear") }} {{ user }}
       <el-popover placement="bottom" trigger="click">
         <div class="popdv">
@@ -161,11 +161,11 @@ export default {
             message:"上传成功"
         });
         this.dialogVisible = false
-        this.uploaddata.avatar = file.response.url;
-        // console.log(this.uploaddata.avatar);
-        let arr = JSON.parse(localStorage.getItem("usermsg"));
-        arr.avatar = file.response.url;
-        localStorage.setItem("usermsg", JSON.stringify(arr));
+        this.$set(this.uploaddata,"avatar",file.response.url)
+        // this.uploaddata.avatar = file.response.url;
+        // let arr = JSON.parse(localStorage.getItem("usermsg"));
+        // arr.avatar = file.response.url;
+        localStorage.setItem("usermsg", JSON.stringify(this.uploaddata));
       }
     },
     beforeAvatarUpload(file) {
@@ -303,6 +303,7 @@ export default {
   mounted() {
     this.user = localStorage.getItem("user");
     this.uploaddata = JSON.parse(localStorage.getItem("usermsg"));
+    //console.log(this.uploaddata);
     this.$i18n.locale = "zh";
   },
   created() {},
