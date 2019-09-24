@@ -132,10 +132,9 @@ export default {
         password: [
           { required: true, message: "请输入您的密码", trigger: "blur" },
           {
-            type: "number",
             min: 6,
             max: 6,
-            message: "只能为6个数字",
+            message: "只能为六个字符",
             trigger: "blur"
           }
         ],
