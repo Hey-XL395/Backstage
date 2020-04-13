@@ -6,27 +6,29 @@
       @open="handleOpen"
       :collapse="isCollapsecode"
       @select="handleSelect"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      background-color="#344055"
+      text-color="black"
+      active-text-color="skyblue"
+      background-color="pink"
     >
       <el-menu-item
         v-for="(item, index) in bigclass"
         :index="String(index + 1)"
         :key="index"
         v-if="!item.smallclass"
-        @click="dialogVisible = item.shownew"
       >
+	  <!-- @click="dialogVisible = item.shownew" 不提示新消息-->
         <i :class="item.icon"></i
-        ><img
+        >
+		<!-- <img
           src="../../assets/圆点.png"
           alt=""
           v-if="item.shownew === true && isCollapsecode === true"
           class="picclass"
-        />
-        <span slot="title"
+        /> -->
+        <span
           >{{ item.title
-          }}<span v-if="item.shownew === true" class="newstyl">new</span></span
+          }}<!-- <span v-if="item.shownew === true" class="newstyl">new</span> -->
+		  </span
         >
       </el-menu-item>
       <!--再次循环-->
@@ -41,25 +43,28 @@
       >
         <template slot="title">
           <i :class="item.icon"></i
-          ><img
+          >
+<!-- 		  <img
             src="../../assets/圆点.png"
             alt=""
             v-if="item.shownew === true && isCollapsecode === true"
             class="picclass"
-          />
+          /> -->
           <span slot="title"
             >{{ item.title
-            }}<span v-if="item.shownew === true" class="newstyl"
+            }}
+<!-- 			<span v-if="item.shownew === true" class="newstyl"
               >new</span
-            ></span
+            >-->
+			</span
           >
         </template>
+		<!-- @click="dialogVisible = item.shownew" 不提示新消息-->
         <el-menu-item
           v-for="(item1, index1) in item.smallclass.title"
           :key="index1"
           :index="String(index + 3 - index1)"
           v-if="item.smallclass"
-          @click="dialogVisible = item.shownew"
           >{{ item1 }}</el-menu-item
         >
       </el-submenu>
@@ -94,10 +99,10 @@ export default {
           title: "首页",
           icon: "el-icon-menu"
         },
-        {
-          title: "日程管理",
-          icon: "el-icon-video-pause"
-        },
+        // {
+        //   title: "日程管理",
+        //   icon: "el-icon-video-pause"
+        // },
         {
           title: "通讯录",
           icon: "el-icon-c-scale-to-original"
@@ -136,28 +141,28 @@ export default {
         localStorage.setItem("nowactive", "1");
         this.$router.push("/");
       }
+      // if (Number(key) === 2) {
+      //   localStorage.setItem("nowactive", "2");
+      //   this.$router.push("/scheduleManagement");
+      // }
       if (Number(key) === 2) {
         localStorage.setItem("nowactive", "2");
-        this.$router.push("/scheduleManagement");
+        this.$router.push("/Maillist");
       }
       if (Number(key) === 3) {
         localStorage.setItem("nowactive", "3");
-        this.$router.push("/Maillist");
+        this.$router.push("/SalaryManagement/Organizationalpersonnel");
       }
       if (Number(key) === 4) {
         localStorage.setItem("nowactive", "4");
-        this.$router.push("/SalaryManagement/Organizationalpersonnel");
+        this.$router.push("/PersonnelInformation/Organizationalpersonnel");
       }
       if (Number(key) === 5) {
         localStorage.setItem("nowactive", "5");
-        this.$router.push("/PersonnelInformation/Organizationalpersonnel");
+        this.$router.push("/OfferAdministration/Organizationalpersonnel");
       }
       if (Number(key) === 6) {
         localStorage.setItem("nowactive", "6");
-        this.$router.push("/OfferAdministration/Organizationalpersonnel");
-      }
-      if (Number(key) === 7) {
-        localStorage.setItem("nowactive", "7");
         this.$router.push("/Classificationform/From");
       }
     },
@@ -192,29 +197,29 @@ export default {
     isCollapsecode() {
       return this.$store.state.showlable;
     },
-    // ...mapState(["lablecode", "widthcode"])
-    languagedata() {
-      return this.$i18n.locale;
-    }
+    // // ...mapState(["lablecode", "widthcode"])
+    // languagedata() {
+    //   return this.$i18n.locale;
+    // }
   },
   watch: {
-    languagedata(val, oldval) {
-      // //console.log(val);
-      // //console.log(oldval);
-      this.bigclass[0].title = this.$t("content.home");
-      this.bigclass[1].title = this.$t("content.Schedule");
-      this.bigclass[2].title = this.$t("content.Maillist");
-      this.bigclass[3].title = this.$t("content.Organizeemployees");
-      this.bigclass[4].title = this.$t("content.form");
-      this.bigclass[3].smallclass.title[0] = this.$t("content.offer");
-      this.bigclass[3].smallclass.title[1] = this.$t("content.peoplemessage");
-      this.bigclass[3].smallclass.title[2] = this.$t(
-        "content.salarymanagement"
-      );
-      this.bigclass[4].smallclass.title[0] = this.$t(
-        "content.Distributionform"
-      );
-    }
+    // languagedata(val, oldval) {
+    //   // //console.log(val);
+    //   // //console.log(oldval);
+    //   this.bigclass[0].title = this.$t("content.home");
+    //   this.bigclass[1].title = this.$t("content.Schedule");
+    //   this.bigclass[2].title = this.$t("content.Maillist");
+    //   this.bigclass[3].title = this.$t("content.Organizeemployees");
+    //   this.bigclass[4].title = this.$t("content.form");
+    //   this.bigclass[3].smallclass.title[0] = this.$t("content.offer");
+    //   this.bigclass[3].smallclass.title[1] = this.$t("content.peoplemessage");
+    //   this.bigclass[3].smallclass.title[2] = this.$t(
+    //     "content.salarymanagement"
+    //   );
+    //   this.bigclass[4].smallclass.title[0] = this.$t(
+    //     "content.Distributionform"
+    //   );
+    // }
   },
   directives: {}
 };

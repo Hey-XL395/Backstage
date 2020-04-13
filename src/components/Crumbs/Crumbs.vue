@@ -16,7 +16,7 @@
 export default {
   name: "Crumbs",
   components: {},
-  props: {},
+  props: ['name'],
   data() {
     return {
       msg: "",

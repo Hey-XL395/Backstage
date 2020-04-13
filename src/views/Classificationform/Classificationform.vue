@@ -97,7 +97,7 @@
         <!--          target="_blank"-->
         <!--          :to="{ path: '/Transferaccounts', query: { name: ruleForm.name } }"-->
         <!--        >-->
-        <el-button class="routerSpan" @click="newpage">查看详情</el-button>
+<!--        <el-button class="routerSpan" @click="newpage">查看详情</el-button>-->
         <!--        </router-link>-->
       </div>
     </el-card>
@@ -113,8 +113,8 @@ export default {
     return {
       active: 1,
       ruleForm: {
-        name: "邓兴林",
-        account: "邓兴林",
+        name: "何婧毓",
+        account: "何婧毓",
         pay: "", //支付方式
         money: 9999999,
         Accountname: "6222629530004624590",

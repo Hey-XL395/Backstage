@@ -18,7 +18,7 @@ import axios from "axios";
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
-//改变element组件国际化
+//国际化
 const messages = {
   en: enLocale,
   zh: zhLocale,

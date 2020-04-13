@@ -334,10 +334,12 @@ export default {
   /*position: fixed;*/
   /*z-index: 1;*/
   /*top: 10px;*/
-  background-color: #2e5e85;
+  background-color: #FEDCD3;
 }
 p {
-  color: white;
+  color: black;
+  font-family:"gloucester mt extra condensed";
+  font-weight: 500;
   font-size: 17px;
   line-height: 60px;
   margin: 0px 20px;

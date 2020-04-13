@@ -56,21 +56,6 @@ const router = new Router({
       }
     },
     {
-      path: "/scheduleManagement",
-      name: "scheduleManagement",
-      component: Content,
-      children: [
-        {
-          path: "",
-          component: () =>
-            import("./views/scheduleManagement/scheduleManagement.vue"),
-          meta: {
-            title: "日程管理"
-          }
-        }
-      ]
-    },
-    {
       path: "/Maillist",
       name: "Maillist",
       component: Content,
@@ -151,6 +136,10 @@ const router = new Router({
   ]
 });
 router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+    next();
+  }
   if (to.path === "/Land" || to.path === "/Registrazione" ||to.path === "/Getpassword") {
     next();
   } else {

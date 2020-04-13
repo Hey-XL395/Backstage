@@ -94,22 +94,22 @@
           class="demo-ruleForm"
           label-position="left"
         >
-          <el-form-item label="请输入验证码" prop="verifica">
-            <div class="verifica">
-              <el-input
-                v-model="ruleForm.verifica"
-                type="phone"
-                autocomplete="off"
-              ></el-input>
-              <el-button
-                type="primary"
-                class="verificabtn"
-                @click="getverifica"
-                :disabled="flag3"
-                >获取验证码<span v-if="flag1">({{ num }})</span></el-button
-              >
-            </div>
-          </el-form-item>
+<!--          <el-form-item label="请输入验证码" prop="verifica">-->
+<!--            <div class="verifica">-->
+<!--              <el-input-->
+<!--                v-model="ruleForm.verifica"-->
+<!--                type="phone"-->
+<!--                autocomplete="off"-->
+<!--              ></el-input>-->
+<!--              <el-button-->
+<!--                type="primary"-->
+<!--                class="verificabtn"-->
+<!--                @click="getverifica"-->
+<!--                :disabled="flag3"-->
+<!--                >获取验证码<span v-if="flag1">({{ num }})</span></el-button-->
+<!--              >-->
+<!--            </div>-->
+<!--          </el-form-item>-->
         </el-form>
         <div class="foot1">
           <el-row>
@@ -142,7 +142,7 @@ export default {
         name: "jack",
         password: "123",
         password2: "123",
-        phone: "18782234583",
+        phone: "15881234571",
         msg: "",
         mail: "271305636@qq.com",
         verifica: ""
@@ -172,10 +172,10 @@ export default {
             trigger: ["blur", "change"]
           }
         ],
-        verifica: [
-          { required: true, message: "请输入验证码", trigger: "blur" },
-          { min: 6, max: 20, message: "长度在 6 到 20 个字符", trigger: "blur" }
-        ]
+        // verifica: [
+        //   { required: true, message: "请输入验证码", trigger: "blur" },
+        //   { min: 6, max: 20, message: "长度在 6 到 20 个字符", trigger: "blur" }
+        // ]
       }
     };
   },
@@ -260,11 +260,11 @@ export default {
           });
           return;
         }
+        // code: this.ruleForm.verifica,//验证码暂时不要
         this.$axios
           .req("/api/users/register", {
             username: this.ruleForm.name,
             password: this.ruleForm.password,
-            code: this.ruleForm.verifica,
             mail: this.ruleForm.mail,
             phone: this.ruleForm.phone
           })
@@ -306,8 +306,8 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: skyblue;
-  background-image: url("../../assets/海贼.jpg");
+  background-image: url("../../assets/天氣之子.jpg");
+
 }
 .Land1 {
   width: 700px;

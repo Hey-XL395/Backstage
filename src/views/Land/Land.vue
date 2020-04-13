@@ -1,20 +1,23 @@
 <template>
   <div class="Land dv_dv_dv1">
     <el-card class="Land1">
-      <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix"><!--      清除浮动-->
         <span class="please">请登录</span>
       </div>
       <div class="middle1">
         <el-form
           :model="ruleForm"
           :rules="rules"
+          @submit.native.prevent
           ref="ruleForm"
           label-width="130px"
           class="demo-ruleForm"
           label-position="left"
         >
+          <div></div>
           <el-form-item label="请输入用户名" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.name" @keydown.enter.native="Land"
+            ></el-input>
           </el-form-item>
         </el-form>
         <br />
@@ -22,6 +25,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
+          @submit.native.prevent
           label-width="130px"
           class="demo-ruleForm-Verification"
           label-position="left"
@@ -33,19 +37,22 @@
                 type="password"
                 v-model="ruleForm.password"
                 autocomplete="off"
+                @keydown.enter.native="Land"
               ></el-input
-              ><el-button
-                type="primary"
-                class="passwordnone1"
-                @click="getpassword"
-                >忘记密码</el-button
               >
+<!--              <el-button-->
+<!--                type="primary"-->
+<!--                class="passwordnone1"-->
+<!--                @click="getpassword"-->
+<!--                >忘记密码</el-button-->
+<!--              >-->
             </div>
           </el-form-item>
         </el-form>
         <br />
         <el-form
           :model="ruleForm"
+          @submit.native.prevent
           :rules="rules"
           ref="ruleForm"
           label-width="130px"
@@ -53,7 +60,7 @@
           label-position="left"
         >
           <el-form-item label="请输入验证码" prop="Verification">
-            <el-input v-model="ruleForm.Verification"></el-input
+            <el-input v-model="ruleForm.Verification" @keydown.enter.native="Land"></el-input
             ><span v-html="Captcha" @click="PIG"></span>
           </el-form-item>
         </el-form>
@@ -63,15 +70,14 @@
               class="btn"
               type="primary"
               @click="Land"
-              @keydown.enter="Land"
               :plain="true"
               >登陆</el-button
             >
-            <div class="github">
-              <a href="api/users/githubLogin" @click="gethubuser"
-                ><img src="../../assets/github.png" alt=""
-              /></a>
-            </div>
+<!--            <div class="github">-->
+<!--              <a href="api/users/githubLogin" @click="gethubuser"-->
+<!--                ><img src="../../assets/github.png" alt=""-->
+<!--              /></a>-->
+<!--            </div>-->
             <el-button class="btn" type="primary" @click="Add" :plain="true"
               >注册</el-button
             >
@@ -199,7 +205,7 @@ export default {
           this.Captcha = req.data;
         })
         .catch(e => {
-          //console.log(e);
+          console.log(e);
         });
     },
     gethubuser() {
@@ -234,7 +240,7 @@ export default {
   right: 0;
   left: 0;
   bottom: 0;
-  background-image: url("../../assets/海贼.jpg");
+  background-image: url("../../assets/天氣之子.jpg");
   /*background-image: url("../../assets/猪.jpg");*/
 }
 .Land1 {

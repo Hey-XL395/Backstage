@@ -12,7 +12,8 @@
           >确认</el-button
         ><el-button type="primary" v-if="!flag" @click="cancelshow"
           >取消</el-button
-        ><el-button type="primary">导出</el-button>
+        >
+<!--        <el-button type="primary">导出</el-button>-->
       </div>
     </header>
     <nav>

@@ -8,7 +8,9 @@
       <el-container>
         <el-aside :width="widthlength"><asideNav></asideNav></el-aside>
         <el-container>
-          <el-main><Crumbs></Crumbs><router-view></router-view></el-main>
+          <el-main><Crumbs></Crumbs>
+            <router-view></router-view>
+          </el-main>
         </el-container>
       </el-container>
     </el-container>
@@ -32,7 +34,9 @@ export default {
       widthlength:""
     };
   },
-  methods: {},
+  methods: {
+
+  },
   mounted() {
     // if (this.$store.state.widthcode) {
     //   this.widthlength = "200px";
@@ -50,7 +54,7 @@ export default {
 
 <style scoped lang="scss">
 .el-header {
-  background-color: #2e5e85;
+  background-color: #FEDCD3;
   position: fixed;
   left: 0;
   right: 0;
@@ -59,7 +63,7 @@ export default {
   top: 0px;
 }
 .el-aside {
-  background-color: #344055;
+  background-color: lightpink;
   /*background-color: #f0f2f5;*/
   /*position: fixed;*/
   /*top: 60px;*/

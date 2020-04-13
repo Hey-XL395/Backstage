@@ -5,9 +5,10 @@
         <img src="../../assets/文件.png" alt="" class="imgstyle" />offer管理
       </div>
       <div>
-        <el-button type="primary">新建offer</el-button
-        ><el-button type="primary">转移状态</el-button
-        ><el-button type="primary">导出</el-button>
+<!--        <el-button type="primary">新建offer</el-button-->
+<!--        ><el-button type="primary">转移状态</el-button-->
+<!--        >-->
+<!--        <el-button type="primary">导出</el-button>-->
       </div>
     </header>
     <el-card class="box-card">
